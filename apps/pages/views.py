@@ -86,9 +86,11 @@ def service_detail(request, slug):
 def project_detail(request, slug):
     project = get_object_or_404(Project, slug=slug)
     related = Project.objects.filter(filter_group=project.filter_group).exclude(slug=slug)[:3]
+    tech_tags = [t.strip() for t in project.tech_stack.split(",") if t.strip()] if project.tech_stack else []
     return render(request, "pages/project_detail.html", {
         "project": project,
         "related": related,
+        "tech_tags": tech_tags,
     })
 
 

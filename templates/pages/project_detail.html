@@ -95,14 +95,12 @@
     </div>
 
     <aside class="proj-sidebar reveal">
-      {% if project.tech_stack %}
+      {% if tech_tags %}
       <div class="proj-sidebar__block">
         <h3 class="proj-sidebar__label">Tech Stack</h3>
         <div class="proj-tags">
-          {% for tag in project.tech_stack.split(',') %}
-          {% if tag.strip %}
-          <span class="proj-tag">{{ tag.strip }}</span>
-          {% endif %}
+          {% for tag in tech_tags %}
+          <span class="proj-tag">{{ tag }}</span>
           {% endfor %}
         </div>
       </div>
