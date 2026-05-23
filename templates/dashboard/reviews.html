@@ -1,0 +1,54 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Reviews{% endblock %}
+{% block page_title %}Client Reviews{% endblock %}
+{% block header_actions %}
+<a href="{% url 'dashboard:review_add' %}" class="db-btn db-btn--primary">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+  </svg>
+  Add Review
+</a>
+{% endblock %}
+
+{% block content %}
+{% if reviews %}
+<div class="db-cards-grid">
+  {% for r in reviews %}
+  <div class="db-review-card">
+    <p class="db-review-card__quote">"{{ r.quote }}"</p>
+    <div class="db-review-card__author">
+      <div class="db-review-card__avatar">
+        {% if r.avatar %}
+        <img src="{{ r.avatar.url }}" alt="{{ r.name }}" style="width:100%;height:100%;object-fit:cover;">
+        {% else %}
+        {{ r.name|first }}
+        {% endif %}
+      </div>
+      <div>
+        <div class="db-review-card__name">{{ r.name }}</div>
+        <div class="db-review-card__role">{{ r.role }}</div>
+      </div>
+      <div style="margin-left:auto;">
+        {% if r.is_active %}
+        <span class="db-badge db-badge--active">Active</span>
+        {% else %}
+        <span class="db-badge db-badge--inactive">Inactive</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="db-review-card__actions">
+      <a href="{% url 'dashboard:review_edit' r.pk %}" class="db-btn db-btn--ghost db-btn--sm">Edit</a>
+      <form method="post" action="{% url 'dashboard:review_delete' r.pk %}" onsubmit="return confirm('Delete this review?')" style="margin-left:auto;">
+        {% csrf_token %}
+        <button type="submit" class="db-btn db-btn--danger db-btn--sm">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="db-empty">
+  <p>No reviews yet. <a href="{% url 'dashboard:review_add' %}" style="color:var(--db-accent);">Add the first one.</a></p>
+</div>
+{% endif %}
+{% endblock %}

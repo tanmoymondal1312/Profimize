@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /blog/search/
+Disallow: /ckeditor5/
+
+Sitemap: https://profimize.com/sitemap.xml

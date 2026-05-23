@@ -1,0 +1,89 @@
+{% extends "dashboard/base.html" %}
+{% block title %}{{ action }}{% endblock %}
+{% block page_title %}{{ action }}{% endblock %}
+{% block header_actions %}
+<a href="{% url 'dashboard:projects' %}" class="db-btn db-btn--ghost">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+  Back
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="db-form-card">
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <div class="db-form-row">
+      <div class="db-form-group">
+        <label>Title</label>
+        {{ form.title }}
+      </div>
+      <div class="db-form-group">
+        <label>Slug <span style="font-weight:400;">(auto-filled if blank)</span></label>
+        {{ form.slug }}
+      </div>
+    </div>
+
+    <div class="db-form-row">
+      <div class="db-form-group">
+        <label>Category</label>
+        {{ form.category }}
+      </div>
+      <div class="db-form-group">
+        <label>Filter Group</label>
+        {{ form.filter_group }}
+      </div>
+    </div>
+
+    <div class="db-form-row">
+      <div class="db-form-group">
+        <label>Client Name</label>
+        {{ form.client_name }}
+      </div>
+      <div class="db-form-group">
+        <label>Year</label>
+        {{ form.year }}
+      </div>
+    </div>
+
+    <div class="db-form-row">
+      <div class="db-form-group">
+        <label>Live URL</label>
+        {{ form.url }}
+      </div>
+      <div class="db-form-group">
+        <label>Order</label>
+        {{ form.order }}
+      </div>
+    </div>
+
+    <div class="db-form-group">
+      <label>Tech Stack</label>
+      {{ form.tech_stack }}
+      <div class="db-form-help">Comma-separated e.g. Django, React, PostgreSQL</div>
+    </div>
+
+    <div class="db-form-group">
+      <label>Thumbnail Image</label>
+      {{ form.image }}
+      {% if obj and obj.image %}
+      <div class="db-img-preview">
+        <img src="{{ obj.image.url }}" alt="{{ obj.title }}">
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="db-form-group">
+      <label>Full Description</label>
+      {{ form.full_description }}
+    </div>
+
+    <div class="db-form-actions">
+      <button type="submit" class="db-btn db-btn--primary">Save Project</button>
+      <a href="{% url 'dashboard:projects' %}" class="db-btn db-btn--ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

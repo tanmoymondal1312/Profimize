@@ -1,0 +1,110 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070b14">
+
+  {% include "partials/_seo.html" %}
+
+  {# Favicon #}
+  <link rel="icon" href="{% static 'img/favicon/favicon.ico' %}" sizes="any">
+  <link rel="icon" href="{% static 'img/favicon/favicon.svg' %}" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+  <link rel="manifest" href="/manifest.json">
+
+  {# Font preloads — performance critical #}
+  <link rel="preload" href="{% static 'fonts/inter-v20-latin-regular.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{% static 'fonts/plus-jakarta-sans-v12-latin-700.woff2' %}" as="font" type="font/woff2" crossorigin>
+
+  {# Main stylesheet #}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+  {# Sitewide JSON-LD — Organization + WebSite #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://profimize.com/#organization",
+        "name": "Profimize",
+        "url": "https://profimize.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://profimize.com{% static 'img/logo.png' %}"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+8801745274403",
+          "contactType": "customer service"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Mirpur-1",
+          "addressLocality": "Dhaka",
+          "addressCountry": "BD"
+        },
+        "sameAs": [
+          "https://facebook.com/profimize",
+          "https://twitter.com/profimize",
+          "https://instagram.com/profimize",
+          "https://linkedin.com/company/profimize",
+          "https://youtube.com/@profimize"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://profimize.com/#website",
+        "url": "https://profimize.com",
+        "name": "Profimize",
+        "publisher": {"@id": "https://profimize.com/#organization"},
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://profimize.com/blog/search/?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {% include "partials/_icons.html" %}
+  {% include "partials/_header.html" %}
+
+  {# YouTube lightbox modal #}
+  <div id="yt-lightbox" class="yt-lightbox" role="dialog" aria-modal="true" aria-label="Video player" hidden>
+    <div class="yt-lightbox__backdrop" id="yt-backdrop"></div>
+    <div class="yt-lightbox__content">
+      <button class="yt-lightbox__close" id="yt-close" aria-label="Close video">
+        <svg width="24" height="24" aria-hidden="true"><use href="#icon-x"/></svg>
+      </button>
+      <div class="yt-lightbox__player" id="yt-player"></div>
+    </div>
+  </div>
+
+  {% if messages %}
+  <div class="messages-container" aria-live="polite">
+    {% for msg in messages %}
+    <div class="alert alert--{{ msg.tags }}">{{ msg }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "partials/_footer.html" %}
+  {% include "partials/_mobile_nav.html" %}
+
+  <script src="{% static 'js/main.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

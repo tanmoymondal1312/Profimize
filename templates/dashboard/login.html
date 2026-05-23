@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Login — Profimize</title>
+  <link rel="icon" href="{% static 'img/logo.png' %}">
+  <link rel="preload" href="{% static 'fonts/inter-var.woff2' %}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body class="dashboard-body">
+
+<div class="db-login-wrap">
+  <div class="db-login-card">
+    <div class="db-login-header">
+      <img src="{% static 'img/logo.png' %}" alt="Profimize">
+      <h1>Profimize Admin</h1>
+      <p>Sign in to your dashboard</p>
+    </div>
+    <div class="db-login-body">
+      {% if form.non_field_errors %}
+      <div class="db-error-list">
+        <ul>{% for e in form.non_field_errors %}<li>{{ e }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="db-form-group">
+          <label for="{{ form.username.id_for_label }}">Username</label>
+          {{ form.username }}
+          {% if form.username.errors %}
+          <div style="color:#ef4444;font-size:.75rem;margin-top:.3rem;">{{ form.username.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <div class="db-form-group">
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          {{ form.password }}
+          {% if form.password.errors %}
+          <div style="color:#ef4444;font-size:.75rem;margin-top:.3rem;">{{ form.password.errors.0 }}</div>
+          {% endif %}
+        </div>
+        <button type="submit" class="db-btn db-btn--primary db-login-submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

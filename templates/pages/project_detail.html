@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block seo_title %}{{ project.title }} | Portfolio | Profimize{% endblock %}
+{% block seo_description %}{{ project.full_description|truncatechars:155|default:project.title }}{% endblock %}
+{% block seo_canonical %}https://profimize.com/portfolio/{{ project.slug }}/{% endblock %}
+{% block seo_og_title_inner %}{{ project.title }} | Profimize Portfolio{% endblock %}
+{% block seo_og_desc_inner %}{{ project.full_description|truncatechars:155|default:project.title }}{% endblock %}
+{% if project.image %}{% block seo_og_image %}{{ project.image.url }}{% endblock %}{% endif %}
+{% block seo_tw_title %}{{ project.title }} | Profimize Portfolio{% endblock %}
+{% block seo_tw_desc %}{{ project.full_description|truncatechars:155|default:project.title }}{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CreativeWork",
+      "name": "{{ project.title|escapejs }}",
+      "description": "{{ project.full_description|truncatechars:200|escapejs }}",
+      "creator": {"@id": "https://profimize.com/#organization"},
+      {% if project.url and project.url != '#' %}"url": "{{ project.url }}",{% endif %}
+      {% if project.image %}"image": "https://profimize.com{{ project.image.url }}",{% endif %}
+      "dateCreated": "{{ project.year }}"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem","position": 1,"name": "Home","item": "https://profimize.com/"},
+        {"@type": "ListItem","position": 2,"name": "Portfolio","item": "https://profimize.com/"},
+        {"@type": "ListItem","position": 3,"name": "{{ project.title|escapejs }}","item": "https://profimize.com/portfolio/{{ project.slug }}/"}
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+
+{# ── Hero Image ── #}
+<div class="proj-hero" aria-label="{{ project.title }} thumbnail">
+  {% if project.image %}
+  <img src="{{ project.image.url }}" alt="{{ project.title }}" width="1200" height="500" loading="eager" decoding="async" class="proj-hero__img">
+  {% else %}
+  <div class="proj-hero__placeholder"></div>
+  {% endif %}
+  <div class="proj-hero__overlay">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="{% url 'pages:home' %}">Home</a>
+        <span aria-hidden="true">/</span>
+        <span>Portfolio</span>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{{ project.title }}</span>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{# ── Project Details ── #}
+<section class="section" aria-label="Project details">
+  <div class="container proj-layout">
+    <div class="proj-main">
+      <div class="proj-header reveal">
+        <span class="proj-category-pill">{{ project.category }}</span>
+        <h1 class="section-title" style="margin:.75rem 0;">{{ project.title }}</h1>
+        <div class="proj-meta">
+          {% if project.client_name %}
+          <span>
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-user"/></svg>
+            {{ project.client_name }}
+          </span>
+          {% endif %}
+          {% if project.year %}
+          <span>
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-calendar"/></svg>
+            {{ project.year }}
+          </span>
+          {% endif %}
+          <span>
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-folder"/></svg>
+            {{ project.get_filter_group_display }}
+          </span>
+        </div>
+      </div>
+
+      {% if project.full_description %}
+      <div class="proj-desc reveal">
+        <h2 class="proj-section-title">About the Project</h2>
+        <div class="prose-content">{{ project.full_description|linebreaks }}</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <aside class="proj-sidebar reveal">
+      {% if project.tech_stack %}
+      <div class="proj-sidebar__block">
+        <h3 class="proj-sidebar__label">Tech Stack</h3>
+        <div class="proj-tags">
+          {% for tag in project.tech_stack.split(',') %}
+          {% if tag.strip %}
+          <span class="proj-tag">{{ tag.strip }}</span>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if project.client_name %}
+      <div class="proj-sidebar__block">
+        <h3 class="proj-sidebar__label">Client</h3>
+        <p class="proj-sidebar__val">{{ project.client_name }}</p>
+      </div>
+      {% endif %}
+
+      {% if project.year %}
+      <div class="proj-sidebar__block">
+        <h3 class="proj-sidebar__label">Year</h3>
+        <p class="proj-sidebar__val">{{ project.year }}</p>
+      </div>
+      {% endif %}
+
+      {% if project.url and project.url != '#' %}
+      <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:.5rem;">
+        View Live Site
+        <svg width="16" height="16" aria-hidden="true"><use href="#icon-external-link"/></svg>
+      </a>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+
+{# ── Related Projects ── #}
+{% if related %}
+<section class="section portfolio-section" aria-label="Related projects">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">More Work</p>
+      <h2 class="section-title">Related Projects</h2>
+    </div>
+    <div class="portfolio-grid">
+      {% for p in related %}
+      <a href="{% url 'pages:project_detail' p.slug %}" class="project-card reveal" style="text-decoration:none;" data-filter="{{ p.filter_group }}">
+        <div class="project-thumb">
+          {% if p.image %}
+          <img src="{{ p.image.url }}" alt="{{ p.title }}" width="400" height="280" loading="lazy" decoding="async">
+          {% else %}
+          <div class="project-placeholder" aria-hidden="true"></div>
+          {% endif %}
+          <div class="project-overlay">
+            <span class="project-category">{{ p.category }}</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <h3 class="project-title">{{ p.title }}</h3>
+          <span class="project-cat-label">{{ p.get_filter_group_display }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% load static %}
+<nav class="mobile-bottom-nav" aria-label="Mobile bottom navigation">
+  <a href="{% url 'pages:home' %}" class="bottom-tab {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-label="Home">
+    <svg width="22" height="22" aria-hidden="true"><use href="#icon-home"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="{% url 'pages:services' %}" class="bottom-tab {% if request.resolver_match.url_name == 'services' %}active{% endif %}" aria-label="Services">
+    <svg width="22" height="22" aria-hidden="true"><use href="#icon-briefcase"/></svg>
+    <span>Services</span>
+  </a>
+  <a href="{% url 'blog:list' %}" class="bottom-tab {% if 'blog' in request.resolver_match.app_name %}active{% endif %}" aria-label="Blog">
+    <svg width="22" height="22" aria-hidden="true"><use href="#icon-newspaper"/></svg>
+    <span>Blog</span>
+  </a>
+  <a href="{% url 'pages:contact' %}" class="bottom-tab {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" aria-label="Contact">
+    <svg width="22" height="22" aria-hidden="true"><use href="#icon-send"/></svg>
+    <span>Contact</span>
+  </a>
+</nav>

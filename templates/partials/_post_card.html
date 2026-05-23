@@ -1,0 +1,44 @@
+{% load static %}
+<article class="post-card reveal">
+  <a href="{{ post.get_absolute_url }}" class="post-card__thumb-link" {% if post.has_video %}data-video-id="{{ post.youtube_id }}"{% endif %}>
+    <div class="post-card__thumb-wrap">
+      <img
+        src="{{ post.thumb_url }}"
+        alt="{{ post.title }}"
+        width="640"
+        height="360"
+        loading="lazy"
+        decoding="async"
+        class="post-card__thumb"
+      >
+      {% if post.has_video %}
+      <button class="play-overlay" aria-label="Play video: {{ post.title }}" data-video-id="{{ post.youtube_id }}">
+        <svg width="32" height="32" aria-hidden="true"><use href="#icon-play"/></svg>
+      </button>
+      {% endif %}
+    </div>
+  </a>
+  <div class="post-card__body">
+    {% if post.category %}
+    <a href="{{ post.category.get_absolute_url }}" class="category-pill">{{ post.category.name }}</a>
+    {% endif %}
+    <h3 class="post-card__title">
+      <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h3>
+    <p class="post-card__excerpt">{{ post.excerpt|truncatechars:120 }}</p>
+    <div class="post-card__meta">
+      <span>
+        <svg width="14" height="14" aria-hidden="true"><use href="#icon-calendar"/></svg>
+        <time datetime="{{ post.published_at|date:'Y-m-d' }}">{{ post.published_at|date:"M j, Y" }}</time>
+      </span>
+      <span>
+        <svg width="14" height="14" aria-hidden="true"><use href="#icon-clock"/></svg>
+        {{ post.reading_time }} min read
+      </span>
+      <span>
+        <svg width="14" height="14" aria-hidden="true"><use href="#icon-eye"/></svg>
+        {{ post.view_count }}
+      </span>
+    </div>
+  </div>
+</article>

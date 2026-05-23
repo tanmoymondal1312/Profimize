@@ -1,0 +1,78 @@
+{% load static %}
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="{% url 'pages:home' %}" class="site-logo" style="margin-bottom:.25rem;">
+          <img src="{% static 'img/logo.png' %}" alt="" width="34" height="34" loading="lazy" class="site-logo__img">
+          <span class="site-logo__name">Profimize</span>
+        </a>
+        <p class="footer-tagline">Grow your business by professional digital marketing</p>
+        <div class="social-links">
+          <a href="https://facebook.com/profimize" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="20" height="20" aria-hidden="true"><use href="#icon-facebook"/></svg>
+          </a>
+          <a href="https://twitter.com/profimize" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+            <svg width="20" height="20" aria-hidden="true"><use href="#icon-twitter-x"/></svg>
+          </a>
+          <a href="https://instagram.com/profimize" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="20" height="20" aria-hidden="true"><use href="#icon-instagram"/></svg>
+          </a>
+          <a href="https://linkedin.com/company/profimize" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="20" height="20" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+          </a>
+          <a href="https://youtube.com/@profimize" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg width="20" height="20" aria-hidden="true"><use href="#icon-youtube"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-heading">Services</h3>
+        <ul class="footer-links">
+          <li><a href="{% url 'pages:services' %}#web-development">Web Development</a></li>
+          <li><a href="{% url 'pages:services' %}#social-media-marketing">Social Media Marketing</a></li>
+          <li><a href="{% url 'pages:services' %}#seo">Search Engine Optimisation</a></li>
+          <li><a href="{% url 'pages:services' %}#video-production">Video Production</a></li>
+          <li><a href="{% url 'pages:services' %}#content-marketing">Content Marketing</a></li>
+          <li><a href="{% url 'pages:services' %}#mobile-app-development">App Development</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-heading">Company</h3>
+        <ul class="footer-links">
+          <li><a href="{% url 'pages:about' %}">About Us</a></li>
+          <li><a href="{% url 'blog:list' %}">Blog</a></li>
+          <li><a href="{% url 'pages:career' %}">Career</a></li>
+          <li><a href="{% url 'pages:faq' %}">FAQ</a></li>
+          <li><a href="{% url 'pages:privacy' %}">Privacy Policy</a></li>
+          <li><a href="{% url 'pages:contact' %}">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-heading">Contact</h3>
+        <ul class="footer-contact">
+          <li>
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-map-pin"/></svg>
+            <span>Mirpur-1, Dhaka, Bangladesh</span>
+          </li>
+          <li>
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-phone"/></svg>
+            <a href="tel:+8801745274403">+880 1745 274403</a>
+          </li>
+          <li>
+            <svg width="16" height="16" aria-hidden="true"><use href="#icon-mail"/></svg>
+            <a href="mailto:souravmondalcode@gmail.com">souravmondalcode@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {% now "Y" %} Profimize. All rights reserved.</p>
+      <p class="footer-credit">Designed by <strong>Sourav Mondal</strong>, Founder — Profimize</p>
+    </div>
+  </div>
+</footer>

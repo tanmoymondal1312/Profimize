@@ -1,0 +1,103 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+{# Stats cards #}
+<div class="db-stats-grid">
+  <div class="db-stat-card">
+    <div class="db-stat-card__icon">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </div>
+    <div class="db-stat-card__value">{{ total_messages }}</div>
+    <div class="db-stat-card__label">Total Messages</div>
+    {% if unread_messages %}<div class="db-stat-card__sub">{{ unread_messages }} unread</div>{% endif %}
+  </div>
+
+  <div class="db-stat-card">
+    <div class="db-stat-card__icon" style="background:rgba(99,102,241,.12);color:#6366f1;">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+      </svg>
+    </div>
+    <div class="db-stat-card__value">{{ total_services }}</div>
+    <div class="db-stat-card__label">Services</div>
+  </div>
+
+  <div class="db-stat-card">
+    <div class="db-stat-card__icon" style="background:rgba(34,197,94,.12);color:#22c55e;">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+    </div>
+    <div class="db-stat-card__value">{{ total_projects }}</div>
+    <div class="db-stat-card__label">Projects</div>
+  </div>
+
+  <div class="db-stat-card">
+    <div class="db-stat-card__icon" style="background:rgba(245,158,11,.12);color:#f59e0b;">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    </div>
+    <div class="db-stat-card__value">{{ total_reviews }}</div>
+    <div class="db-stat-card__label">Reviews</div>
+  </div>
+</div>
+
+{# 7-day visit chart #}
+<div class="db-chart-card">
+  <h2>Last 7 Days — Page Views</h2>
+  <div class="db-bar-chart">
+    {% for day in last_7 %}
+    <div class="db-bar-col">
+      <div class="db-bar-count">{{ day.count }}</div>
+      <div class="db-bar" style="height:{{ day.pct }}%;"></div>
+      <div class="db-bar-label">{{ day.date }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{# Latest unread messages #}
+<div class="db-table-card">
+  <div class="db-table-card__header">
+    <h2>Recent Unread Messages</h2>
+    <a href="{% url 'dashboard:messages' %}" class="db-btn db-btn--ghost db-btn--sm">View All</a>
+  </div>
+  {% if latest_messages %}
+  <table class="db-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Email</th>
+        <th>Received</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for msg in latest_messages %}
+      <tr>
+        <td><strong>{{ msg.name }}</strong></td>
+        <td>{{ msg.subject|truncatechars:40 }}</td>
+        <td>{{ msg.email }}</td>
+        <td style="color:var(--db-muted);font-size:.8rem;">{{ msg.created_at|date:"M d, Y" }}</td>
+        <td>
+          <a href="{% url 'dashboard:message_read' msg.pk %}" class="db-btn db-btn--success db-btn--sm">Mark Read</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="db-empty">
+    <p>No unread messages.</p>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Services{% endblock %}
+{% block page_title %}Services{% endblock %}
+{% block header_actions %}
+<a href="{% url 'dashboard:service_add' %}" class="db-btn db-btn--primary">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+  </svg>
+  Add Service
+</a>
+{% endblock %}
+
+{% block content %}
+{% if svcs %}
+<div class="db-cards-grid">
+  {% for svc in svcs %}
+  <div class="db-item-card">
+    <div class="db-item-card__icon">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+      </svg>
+    </div>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem;">
+      <div class="db-item-card__title">{{ svc.title }}</div>
+      {% if svc.is_active %}
+      <span class="db-badge db-badge--active">Active</span>
+      {% else %}
+      <span class="db-badge db-badge--inactive">Inactive</span>
+      {% endif %}
+    </div>
+    <div class="db-item-card__desc">{{ svc.description }}</div>
+    <div style="font-size:.75rem;color:var(--db-muted);margin-bottom:.875rem;">
+      Icon: <code style="background:rgba(255,255,255,.07);padding:.1rem .4rem;border-radius:4px;">{{ svc.icon_name }}</code>
+      &nbsp;· Order: {{ svc.order }}
+    </div>
+    <div class="db-item-card__actions">
+      <a href="{% url 'dashboard:service_edit' svc.pk %}" class="db-btn db-btn--ghost db-btn--sm">Edit</a>
+      <a href="{% url 'pages:service_detail' svc.slug %}" target="_blank" class="db-btn db-btn--ghost db-btn--sm">View</a>
+      <form method="post" action="{% url 'dashboard:service_delete' svc.pk %}" onsubmit="return confirm('Delete {{ svc.title }}?')" style="margin-left:auto;">
+        {% csrf_token %}
+        <button type="submit" class="db-btn db-btn--danger db-btn--sm">Delete</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="db-empty">
+  <p>No services yet. <a href="{% url 'dashboard:service_add' %}" style="color:var(--db-accent);">Add the first one.</a></p>
+</div>
+{% endif %}
+{% endblock %}

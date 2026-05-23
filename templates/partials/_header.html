@@ -1,0 +1,43 @@
+{% load static %}
+<header class="site-header" id="site-header">
+  <div class="header-inner container">
+    <a href="{% url 'pages:home' %}" class="site-logo" aria-label="Profimize — Home">
+      <img src="{% static 'img/logo.png' %}" alt="" width="36" height="36" class="site-logo__img">
+      <span class="site-logo__name">Profimize</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="{% url 'pages:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+      <a href="{% url 'pages:about' %}" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+      <a href="{% url 'pages:services' %}" class="nav-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a>
+      <a href="{% url 'blog:list' %}" class="nav-link {% if 'blog' in request.resolver_match.app_name %}active{% endif %}">Blog</a>
+      <a href="{% url 'pages:contact' %}" class="btn btn-primary nav-cta">Get Started</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+      <svg width="24" height="24" aria-hidden="true"><use href="#icon-menu"/></svg>
+    </button>
+  </div>
+
+  {# Mobile drawer #}
+  <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
+    <nav class="drawer-nav" aria-label="Mobile navigation">
+      <div class="drawer-header">
+        <a href="{% url 'pages:home' %}" class="site-logo">
+          <img src="{% static 'img/logo.png' %}" alt="" width="30" height="30" class="site-logo__img">
+          <span class="site-logo__name">Profimize</span>
+        </a>
+        <button class="drawer-close" id="drawer-close" aria-label="Close menu">
+          <svg width="24" height="24" aria-hidden="true"><use href="#icon-x"/></svg>
+        </button>
+      </div>
+      <a href="{% url 'pages:home' %}" class="drawer-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+      <a href="{% url 'pages:about' %}" class="drawer-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+      <a href="{% url 'pages:services' %}" class="drawer-link {% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a>
+      <a href="{% url 'blog:list' %}" class="drawer-link {% if 'blog' in request.resolver_match.app_name %}active{% endif %}">Blog</a>
+      <a href="{% url 'pages:career' %}" class="drawer-link {% if request.resolver_match.url_name == 'career' %}active{% endif %}">Career</a>
+      <a href="{% url 'pages:contact' %}" class="btn btn-primary" style="margin-top:1rem;">Get Started</a>
+    </nav>
+  </div>
+</header>

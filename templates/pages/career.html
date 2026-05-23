@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block seo_title %}Career at Profimize — Join Our Digital Marketing Team{% endblock %}
+{% block seo_description %}Join the Profimize team! We're looking for passionate digital marketers, web developers, content creators, and SEO specialists in Dhaka, Bangladesh.{% endblock %}
+{% block seo_og_title_inner %}Career at Profimize{% endblock %}
+{% block seo_og_desc_inner %}Join our growing team of digital marketing experts. Open positions in Dhaka, Bangladesh.{% endblock %}
+{% block seo_tw_title %}Career at Profimize{% endblock %}
+{% block seo_tw_desc %}Join the Profimize team — passionate digital marketers and developers in Dhaka.{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://profimize.com/"},{"@type":"ListItem","position":2,"name":"Career","item":"https://profimize.com/career/"}]}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero" aria-label="Career">
+  <div class="hero-bg"><div class="hero-blob hero-blob--1" aria-hidden="true"></div><div class="hero-blob hero-blob--2" aria-hidden="true"></div></div>
+  <div class="container">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="{% url 'pages:home' %}">Home</a>
+      <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron-right"/></svg>
+      <span aria-current="page">Career</span>
+    </nav>
+    <p class="section-label reveal">Work With Us</p>
+    <h1 class="page-title reveal">Join the <span class="gradient-text">Profimize Team</span></h1>
+    <p class="page-subtitle reveal">We're building the future of digital marketing in Bangladesh. Come grow with us.</p>
+  </div>
+</section>
+
+<section class="section" aria-label="Why join us">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Why Profimize?</p>
+      <h2 class="section-title">A Place to Learn, Create & Grow</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="28" height="28" aria-hidden="true"><use href="#icon-trending-up"/></svg></div>
+        <h3 class="service-title">Career Growth</h3>
+        <p class="service-desc">Clear progression paths, mentorship from industry experts, and the opportunity to lead projects from day one.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="28" height="28" aria-hidden="true"><use href="#icon-users"/></svg></div>
+        <h3 class="service-title">Collaborative Culture</h3>
+        <p class="service-desc">A tight-knit, ego-free team that celebrates wins together and supports each other through challenges.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="28" height="28" aria-hidden="true"><use href="#icon-zap"/></svg></div>
+        <h3 class="service-title">Real Impact</h3>
+        <p class="service-desc">Your work directly shapes client success and contributes to building one of Bangladesh's leading digital agencies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-label="Open positions">
+  <div class="container" style="max-width:840px;">
+    <div class="section-header reveal">
+      <p class="section-label">Open Positions</p>
+      <h2 class="section-title">Current Openings</h2>
+    </div>
+
+    <div class="job-list">
+      <div class="job-card reveal">
+        <div class="job-header">
+          <div>
+            <h3 class="job-title">SEO Specialist</h3>
+            <span class="job-meta">Full-time · Remote / Dhaka</span>
+          </div>
+          <a href="mailto:souravmondalcode@gmail.com?subject=Application: SEO Specialist" class="btn btn-primary btn-sm">Apply Now</a>
+        </div>
+        <p>We need an SEO expert who lives and breathes rankings. You'll conduct audits, build link-acquisition strategies, and own organic growth for our clients.</p>
+        <ul class="job-requirements">
+          <li>2+ years hands-on SEO experience</li>
+          <li>Proficiency with Ahrefs, SEMrush, or similar tools</li>
+          <li>Strong understanding of technical SEO (Core Web Vitals, schema, crawlability)</li>
+          <li>Excellent written communication in English and Bengali</li>
+        </ul>
+      </div>
+
+      <div class="job-card reveal">
+        <div class="job-header">
+          <div>
+            <h3 class="job-title">Full-Stack Web Developer</h3>
+            <span class="job-meta">Full-time · Remote / Dhaka</span>
+          </div>
+          <a href="mailto:souravmondalcode@gmail.com?subject=Application: Full-Stack Developer" class="btn btn-primary btn-sm">Apply Now</a>
+        </div>
+        <p>Build fast, beautiful, and scalable web applications for our diverse client base. You'll work across the full stack — from database to polished front-end UI.</p>
+        <ul class="job-requirements">
+          <li>Proficiency in Python/Django and modern JavaScript</li>
+          <li>Experience with MySQL/PostgreSQL and REST APIs</li>
+          <li>Eye for design and ability to translate Figma mockups to pixel-perfect code</li>
+          <li>Understanding of web performance and SEO best practices</li>
+        </ul>
+      </div>
+
+      <div class="job-card reveal">
+        <div class="job-header">
+          <div>
+            <h3 class="job-title">Content Writer & Strategist</h3>
+            <span class="job-meta">Part-time / Freelance · Remote</span>
+          </div>
+          <a href="mailto:souravmondalcode@gmail.com?subject=Application: Content Writer" class="btn btn-primary btn-sm">Apply Now</a>
+        </div>
+        <p>Create compelling blog posts, social media copy, and video scripts that educate, engage, and convert. SEO knowledge is a big plus.</p>
+        <ul class="job-requirements">
+          <li>Exceptional writing skills in English (Bengali is a bonus)</li>
+          <li>Understanding of content marketing and buyer journeys</li>
+          <li>Ability to research and simplify complex topics</li>
+          <li>Portfolio of published work</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-cta reveal" style="text-align:center;margin-top:3rem;">
+      <p class="body-text">Don't see a role that fits? Send us your CV anyway — we're always keen to meet talented people.</p>
+      <a href="mailto:souravmondalcode@gmail.com?subject=Open Application — Profimize" class="btn btn-secondary">Send Open Application</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

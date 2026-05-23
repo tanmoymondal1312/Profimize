@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% load static %}
+
+{# ── Dynamic SEO from post data ── #}
+{% block seo_title %}{{ post.meta_title|default:post.title }} | Profimize Blog{% endblock %}
+{% block seo_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+{% block seo_og_type %}article{% endblock %}
+{% block seo_og_title_inner %}{{ post.meta_title|default:post.title }}{% endblock %}
+{% block seo_og_desc_inner %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+{% block seo_og_image %}
+  {% if post.og_image %}{{ request.scheme }}://{{ request.get_host }}{{ post.og_image.url }}
+  {% elif post.thumbnail %}{{ request.scheme }}://{{ request.get_host }}{{ post.thumbnail.url }}
+  {% else %}{% get_static_prefix %}img/og-default.jpg{% endif %}
+{% endblock %}
+{% block seo_tw_title %}{{ post.meta_title|default:post.title }}{% endblock %}
+{% block seo_tw_desc %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+{% block seo_tw_image %}
+  {% if post.og_image %}{{ request.scheme }}://{{ request.get_host }}{{ post.og_image.url }}
+  {% elif post.thumbnail %}{{ request.scheme }}://{{ request.get_host }}{{ post.thumbnail.url }}
+  {% else %}{% get_static_prefix %}img/og-default.jpg{% endif %}
+{% endblock %}
+{% block seo_canonical %}{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ post.title|escapejs }}",
+  "description": "{{ post.excerpt|escapejs }}",
+  "url": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}",
+  "datePublished": "{{ post.published_at|date:'c' }}",
+  "dateModified": "{{ post.updated_at|date:'c' }}",
+  "author": {"@type": "Person", "name": "{{ post.author.get_full_name|default:post.author.username|escapejs }}"},
+  "publisher": {"@id": "https://profimize.com/#organization"},
+  "image": {
+    "@type": "ImageObject",
+    "url": "{% if post.og_image %}{{ request.scheme }}://{{ request.get_host }}{{ post.og_image.url }}{% elif post.thumbnail %}{{ request.scheme }}://{{ request.get_host }}{{ post.thumbnail.url }}{% else %}https://profimize.com{% static 'img/og-default.jpg' %}{% endif %}"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem","position": 1,"name": "Home","item": "https://profimize.com/"},
+    {"@type": "ListItem","position": 2,"name": "Blog","item": "https://profimize.com/blog/"},
+    {% if post.category %}
+    {"@type": "ListItem","position": 3,"name": "{{ post.category.name|escapejs }}","item": "{{ request.scheme }}://{{ request.get_host }}{{ post.category.get_absolute_url }}"},
+    {"@type": "ListItem","position": 4,"name": "{{ post.title|escapejs }}","item": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}"}
+    {% else %}
+    {"@type": "ListItem","position": 3,"name": "{{ post.title|escapejs }}","item": "{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}"}
+    {% endif %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<article class="blog-detail" aria-label="{{ post.title }}">
+
+  {# Breadcrumb #}
+  <div class="container">
+    <nav aria-label="Breadcrumb" class="breadcrumb" style="padding-top:6rem;">
+      <a href="{% url 'pages:home' %}">Home</a>
+      <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron-right"/></svg>
+      <a href="{% url 'blog:list' %}">Blog</a>
+      {% if post.category %}
+      <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron-right"/></svg>
+      <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
+      {% endif %}
+      <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron-right"/></svg>
+      <span aria-current="page">{{ post.title|truncatechars:40 }}</span>
+    </nav>
+  </div>
+
+  {# Post header #}
+  <header class="post-header">
+    <div class="container post-header-inner">
+      {% if post.category %}<a href="{{ post.category.get_absolute_url }}" class="category-pill">{{ post.category.name }}</a>{% endif %}
+      <h1 class="post-title">{{ post.title }}</h1>
+      <div class="post-meta">
+        <span>
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-users"/></svg>
+          {{ post.author.get_full_name|default:post.author.username }}
+        </span>
+        <span>
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-calendar"/></svg>
+          <time datetime="{{ post.published_at|date:'Y-m-d' }}">{{ post.published_at|date:"F j, Y" }}</time>
+        </span>
+        <span>
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-clock"/></svg>
+          {{ post.reading_time }} min read
+        </span>
+        <span>
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-eye"/></svg>
+          {{ post.view_count }} views
+        </span>
+      </div>
+    </div>
+  </header>
+
+  {# Hero media #}
+  <div class="post-hero-media">
+    <div class="container">
+      {% if post.thumbnail %}
+        <img src="{{ post.thumbnail.url }}" alt="{{ post.title }}" width="1200" height="630"
+          loading="eager" fetchpriority="high" decoding="async" class="post-hero-img">
+      {% elif post.has_video %}
+        <div class="post-video-embed">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/{{ post.youtube_id }}?rel=0&modestbranding=1"
+            title="{{ post.title }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+            width="1200"
+            height="675">
+          </iframe>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Post body #}
+  <div class="container post-layout">
+    <div class="post-body">
+      <div class="prose">
+        {{ post.body|safe }}
+      </div>
+
+      {# Tags #}
+      {% with tags=post.tags.all %}
+      {% if tags %}
+      <div class="post-tags">
+        <svg width="16" height="16" aria-hidden="true"><use href="#icon-tag"/></svg>
+        {% for tag in tags %}
+        <a href="{% url 'blog:search' %}?q={{ tag.name }}" class="tag-pill">{{ tag.name }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      {# Share buttons #}
+      <div class="post-share">
+        <p class="share-label">Share this article</p>
+        <div class="share-buttons">
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}"
+            target="_blank" rel="noopener noreferrer" class="share-btn share-btn--facebook" aria-label="Share on Facebook">
+            <svg width="18" height="18" aria-hidden="true"><use href="#icon-facebook"/></svg> Facebook
+          </a>
+          <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri|urlencode }}&text={{ post.title|urlencode }}"
+            target="_blank" rel="noopener noreferrer" class="share-btn share-btn--twitter" aria-label="Share on X">
+            <svg width="18" height="18" aria-hidden="true"><use href="#icon-twitter-x"/></svg> X
+          </a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri|urlencode }}"
+            target="_blank" rel="noopener noreferrer" class="share-btn share-btn--linkedin" aria-label="Share on LinkedIn">
+            <svg width="18" height="18" aria-hidden="true"><use href="#icon-linkedin"/></svg> LinkedIn
+          </a>
+          <button class="share-btn share-btn--copy" id="copy-link-btn" data-url="{{ request.build_absolute_uri }}" aria-label="Copy link">
+            <svg width="18" height="18" aria-hidden="true"><use href="#icon-copy"/></svg>
+            <span id="copy-label">Copy Link</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# Prev / Next navigation #}
+  <div class="container post-nav">
+    <div class="post-nav-grid">
+      {% if prev_post %}
+      <a href="{{ prev_post.get_absolute_url }}" class="post-nav-card post-nav-card--prev">
+        <span class="nav-direction"><svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-left"/></svg> Previous</span>
+        <span class="nav-title">{{ prev_post.title|truncatechars:60 }}</span>
+      </a>
+      {% else %}<div></div>{% endif %}
+
+      {% if next_post %}
+      <a href="{{ next_post.get_absolute_url }}" class="post-nav-card post-nav-card--next">
+        <span class="nav-direction">Next <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg></span>
+        <span class="nav-title">{{ next_post.title|truncatechars:60 }}</span>
+      </a>
+      {% else %}<div></div>{% endif %}
+    </div>
+  </div>
+
+  {# Related posts #}
+  {% if related %}
+  <section class="section" aria-label="Related posts">
+    <div class="container">
+      <h2 class="section-title" style="margin-bottom:2rem;">Related Articles</h2>
+      <div class="blog-grid blog-grid--3">
+        {% for post in related %}
+          {% include "partials/_post_card.html" %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+</article>
+{% endblock %}

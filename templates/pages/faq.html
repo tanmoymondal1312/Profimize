@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block seo_title %}FAQ — Frequently Asked Questions | Profimize{% endblock %}
+{% block seo_description %}Find answers to common questions about Profimize's digital marketing services, pricing, process, and results. Still have questions? Contact us!{% endblock %}
+{% block seo_og_title_inner %}FAQ — Profimize{% endblock %}
+{% block seo_og_desc_inner %}Answers to your most common questions about our digital marketing services, pricing, and process.{% endblock %}
+{% block seo_tw_title %}FAQ — Profimize{% endblock %}
+{% block seo_tw_desc %}Common questions about Profimize digital marketing services.{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What services does Profimize offer?","acceptedAnswer":{"@type":"Answer","text":"We offer web development, SEO, social media marketing, video production, content marketing, and mobile app marketing."}},
+    {"@type":"Question","name":"How long does it take to see results?","acceptedAnswer":{"@type":"Answer","text":"SEO results typically show within 3–6 months; social media and content campaigns often show engagement within weeks. We set clear expectations during onboarding."}},
+    {"@type":"Question","name":"Do you work with small businesses?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. We work with businesses of all sizes — from solo entrepreneurs to established companies — with packages tailored to every budget."}},
+    {"@type":"Question","name":"How do I get started?","acceptedAnswer":{"@type":"Answer","text":"Simply fill out our contact form or email us. We'll schedule a free 30-minute consultation to understand your goals and recommend the best path forward."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://profimize.com/"},{"@type":"ListItem","position":2,"name":"FAQ","item":"https://profimize.com/faq/"}]}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero" aria-label="FAQ">
+  <div class="hero-bg"><div class="hero-blob hero-blob--1" aria-hidden="true"></div></div>
+  <div class="container">
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <a href="{% url 'pages:home' %}">Home</a>
+      <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron-right"/></svg>
+      <span aria-current="page">FAQ</span>
+    </nav>
+    <p class="section-label reveal">Got Questions?</p>
+    <h1 class="page-title reveal">Frequently Asked <span class="gradient-text">Questions</span></h1>
+  </div>
+</section>
+
+<section class="section" aria-label="FAQ list">
+  <div class="container" style="max-width:800px;">
+    <div class="faq-list">
+
+      <details class="faq-item reveal" open>
+        <summary class="faq-question">What services does Profimize offer?</summary>
+        <div class="faq-answer">
+          <p>We provide a full suite of digital marketing services: web development, search engine optimisation (SEO), social media marketing, video production & editing, content marketing, and mobile app marketing. Think of us as your one-stop digital growth partner.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">How long does it take to see results?</summary>
+        <div class="faq-answer">
+          <p>It depends on the service. SEO typically shows measurable gains within 3–6 months. Social media and content campaigns can generate engagement within the first few weeks. Paid campaigns deliver results almost immediately. We set transparent expectations at the start of every engagement.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">Do you work with small businesses and startups?</summary>
+        <div class="faq-answer">
+          <p>Absolutely. We love working with startups and small businesses. We offer flexible packages designed for every budget and scale our services as your business grows.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">How much do your services cost?</summary>
+        <div class="faq-answer">
+          <p>Pricing is tailored to the scope and complexity of your project. We offer both project-based and retainer pricing. Contact us for a free consultation and custom quote — there's no pressure, just an honest conversation about your goals.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">How do I get started?</summary>
+        <div class="faq-answer">
+          <p>Simply fill out our <a href="{% url 'pages:contact' %}">contact form</a> or email us at <a href="mailto:souravmondalcode@gmail.com">souravmondalcode@gmail.com</a>. We'll schedule a free 30-minute consultation to understand your goals and recommend the best path forward.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">Do you provide regular reports?</summary>
+        <div class="faq-answer">
+          <p>Yes. Every client receives detailed monthly reports showing key metrics — traffic, rankings, engagement, and ROI. We believe in full transparency; you'll always know exactly where your money is going and what it's achieving.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">Can you build a website and handle marketing too?</summary>
+        <div class="faq-answer">
+          <p>Yes! That's actually our sweet spot. We design and develop high-performance websites and then implement the marketing strategy to drive traffic and conversions. Having both under one roof means seamless integration and faster results.</p>
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">Are you based only in Bangladesh?</summary>
+        <div class="faq-answer">
+          <p>Our team is based in Dhaka, but we work with clients globally. We operate fully remotely and have served clients across South Asia, the Middle East, and beyond.</p>
+        </div>
+      </details>
+
+    </div>
+
+    <div class="faq-cta reveal" style="text-align:center;margin-top:3rem;">
+      <p class="body-text">Still have questions?</p>
+      <a href="{% url 'pages:contact' %}" class="btn btn-primary">Contact Us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

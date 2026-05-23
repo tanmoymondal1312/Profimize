@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block seo_title %}Server Error — Profimize{% endblock %}
+{% block seo_robots %}noindex,nofollow{% endblock %}
+
+{% block content %}
+<section class="error-page" aria-label="500 error">
+  <div class="hero-bg"><div class="hero-blob hero-blob--1" aria-hidden="true"></div></div>
+  <div class="container error-content">
+    <p class="error-code gradient-text">500</p>
+    <h1 class="error-title">Something Went Wrong</h1>
+    <p class="error-desc">We're experiencing a temporary issue. Our team has been notified. Please try again in a moment.</p>
+    <div class="error-actions">
+      <a href="{% url 'pages:home' %}" class="btn btn-primary">Go Home</a>
+      <a href="{% url 'pages:contact' %}" class="btn btn-secondary">Contact Support</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

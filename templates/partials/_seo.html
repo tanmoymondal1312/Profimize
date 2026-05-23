@@ -1,0 +1,26 @@
+{% load static %}
+{# ── Core meta ── #}
+<title>{% block seo_title %}Profimize — Professional Digital Marketing Agency{% endblock %}</title>
+<meta name="description" content="{% block seo_description %}Profimize helps businesses grow through expert web development, SEO, social media marketing, video production, and content strategy. Based in Dhaka, Bangladesh.{% endblock %}">
+<meta name="robots" content="{% block seo_robots %}index,follow{% endblock %}">
+<link rel="canonical" href="{% block seo_canonical %}{{ request.build_absolute_uri }}{% endblock %}">
+
+{# ── Open Graph ── #}
+<meta property="og:type" content="{% block seo_og_type %}website{% endblock %}">
+<meta property="og:site_name" content="Profimize">
+<meta property="og:title" content="{% block seo_og_title %}{% block seo_og_title_inner %}Profimize — Professional Digital Marketing Agency{% endblock %}{% endblock %}">
+<meta property="og:description" content="{% block seo_og_desc %}{% block seo_og_desc_inner %}Profimize helps businesses grow through expert web development, SEO, social media marketing, video production, and content strategy.{% endblock %}{% endblock %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{% block seo_og_image %}{% get_static_prefix %}img/og-default.jpg{% endblock %}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+{# ── Twitter card ── #}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@profimize">
+<meta name="twitter:title" content="{% block seo_tw_title %}Profimize — Professional Digital Marketing Agency{% endblock %}">
+<meta name="twitter:description" content="{% block seo_tw_desc %}Professional digital marketing services to grow your business.{% endblock %}">
+<meta name="twitter:image" content="{% block seo_tw_image %}{% get_static_prefix %}img/og-default.jpg{% endblock %}">
+
+{# ── JSON-LD (page-level block; base provides Organization+WebSite) ── #}
+{% block jsonld %}{% endblock %}

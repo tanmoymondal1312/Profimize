@@ -1,0 +1,65 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Projects{% endblock %}
+{% block page_title %}Projects{% endblock %}
+{% block header_actions %}
+<a href="{% url 'dashboard:project_add' %}" class="db-btn db-btn--primary">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+  </svg>
+  Add Project
+</a>
+{% endblock %}
+
+{% block content %}
+{% if projects %}
+<div class="db-table-card">
+  <table class="db-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Client</th>
+        <th>Year</th>
+        <th>Order</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in projects %}
+      <tr>
+        <td>
+          {% if p.image %}
+          <img src="{{ p.image.url }}" alt="" style="width:60px;height:42px;object-fit:cover;border-radius:6px;">
+          {% else %}
+          <div style="width:60px;height:42px;background:rgba(255,255,255,.05);border-radius:6px;"></div>
+          {% endif %}
+        </td>
+        <td><strong>{{ p.title }}</strong></td>
+        <td><span class="db-badge db-badge--read">{{ p.category }}</span></td>
+        <td style="color:var(--db-muted);">{{ p.client_name|default:"—" }}</td>
+        <td style="color:var(--db-muted);">{{ p.year|default:"—" }}</td>
+        <td style="color:var(--db-muted);">{{ p.order }}</td>
+        <td>
+          <div style="display:flex;gap:.4rem;">
+            <a href="{% url 'dashboard:project_edit' p.pk %}" class="db-btn db-btn--ghost db-btn--sm">Edit</a>
+            {% if p.slug %}
+            <a href="{% url 'pages:project_detail' p.slug %}" target="_blank" class="db-btn db-btn--ghost db-btn--sm">View</a>
+            {% endif %}
+            <form method="post" action="{% url 'dashboard:project_delete' p.pk %}" onsubmit="return confirm('Delete {{ p.title }}?')">
+              {% csrf_token %}
+              <button type="submit" class="db-btn db-btn--danger db-btn--sm">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="db-empty">
+  <p>No projects yet. <a href="{% url 'dashboard:project_add' %}" style="color:var(--db-accent);">Add the first one.</a></p>
+</div>
+{% endif %}
+{% endblock %}

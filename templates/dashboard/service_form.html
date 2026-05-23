@@ -1,0 +1,83 @@
+{% extends "dashboard/base.html" %}
+{% block title %}{{ action }}{% endblock %}
+{% block page_title %}{{ action }}{% endblock %}
+{% block header_actions %}
+<a href="{% url 'dashboard:services' %}" class="db-btn db-btn--ghost">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+  Back
+</a>
+{% endblock %}
+
+{% block content %}
+<div class="db-form-card">
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="db-form-row">
+      <div class="db-form-group">
+        <label>Title</label>
+        {{ form.title }}
+        {% if form.title.errors %}<div style="color:#ef4444;font-size:.75rem;margin-top:.25rem;">{{ form.title.errors.0 }}</div>{% endif %}
+      </div>
+      <div class="db-form-group">
+        <label>Slug</label>
+        {{ form.slug }}
+        {% if form.slug.errors %}<div style="color:#ef4444;font-size:.75rem;margin-top:.25rem;">{{ form.slug.errors.0 }}</div>{% endif %}
+      </div>
+    </div>
+
+    <div class="db-form-row">
+      <div class="db-form-group">
+        <label>Icon Name <span style="font-weight:400;">(Lucide key)</span></label>
+        {{ form.icon_name }}
+        <div class="db-form-help">e.g. code, smartphone, search, video, megaphone, share-2</div>
+      </div>
+      <div class="db-form-group">
+        <label>Order</label>
+        {{ form.order }}
+      </div>
+    </div>
+
+    <div class="db-form-group">
+      <label>Short Description</label>
+      {{ form.description }}
+    </div>
+
+    <div class="db-form-group">
+      <label>Long Description</label>
+      {{ form.long_description }}
+    </div>
+
+    <div class="db-form-group">
+      <label>What We Offer</label>
+      {{ form.what_we_offer }}
+      <div class="db-form-help">One item per line — each line becomes a bullet point on the service page.</div>
+    </div>
+
+    <div class="db-form-group">
+      <label>Our Process</label>
+      {{ form.our_process }}
+      <div class="db-form-help">One step per line — each line becomes a numbered step.</div>
+    </div>
+
+    <div class="db-form-group">
+      <label>Meta Description <span style="font-weight:400;">(max 160 chars)</span></label>
+      {{ form.meta_description }}
+    </div>
+
+    <div class="db-form-group">
+      <div class="db-form-check">
+        {{ form.is_active }}
+        <label for="{{ form.is_active.id_for_label }}" style="margin-bottom:0;text-transform:none;letter-spacing:0;font-size:.875rem;">Active (visible on site)</label>
+      </div>
+    </div>
+
+    <div class="db-form-actions">
+      <button type="submit" class="db-btn db-btn--primary">Save Service</button>
+      <a href="{% url 'dashboard:services' %}" class="db-btn db-btn--ghost">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

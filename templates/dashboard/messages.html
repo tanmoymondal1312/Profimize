@@ -1,0 +1,62 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Messages{% endblock %}
+{% block page_title %}Contact Messages{% endblock %}
+
+{% block content %}
+<div class="db-table-card">
+  <div class="db-table-card__header">
+    <h2>All Messages ({{ msgs|length }})</h2>
+  </div>
+  {% if msgs %}
+  <table class="db-table">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Received</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for msg in msgs %}
+      <tr>
+        <td>
+          {% if msg.is_read %}
+          <span class="db-badge db-badge--read">Read</span>
+          {% else %}
+          <span class="db-badge db-badge--unread">New</span>
+          {% endif %}
+        </td>
+        <td><strong>{{ msg.name }}</strong></td>
+        <td><a href="mailto:{{ msg.email }}" style="color:var(--db-accent);">{{ msg.email }}</a></td>
+        <td>{{ msg.subject }}</td>
+        <td style="max-width:260px;color:var(--db-muted);font-size:.8rem;">{{ msg.message|truncatechars:80 }}</td>
+        <td style="color:var(--db-muted);font-size:.8rem;white-space:nowrap;">{{ msg.created_at|date:"M d, Y H:i" }}</td>
+        <td>
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
+            {% if not msg.is_read %}
+            <a href="{% url 'dashboard:message_read' msg.pk %}" class="db-btn db-btn--success db-btn--sm">Mark Read</a>
+            {% endif %}
+            <form method="post" action="{% url 'dashboard:message_delete' msg.pk %}" onsubmit="return confirm('Delete this message?')">
+              {% csrf_token %}
+              <button type="submit" class="db-btn db-btn--danger db-btn--sm">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="db-empty">
+    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <p>No messages yet.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

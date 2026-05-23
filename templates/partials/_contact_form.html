@@ -1,0 +1,37 @@
+{% load static %}
+{% csrf_token %}
+<form class="contact-form" method="post" action="{% block form_action %}{% endblock %}" novalidate id="contact-form">
+  {% csrf_token %}
+  {{ form.website }}
+  <div class="form-group">
+    <label for="id_name">Full Name <span aria-hidden="true">*</span></label>
+    <input type="text" name="name" id="id_name" value="{{ form.name.value|default:'' }}"
+      placeholder="Your full name" autocomplete="name" required maxlength="100"
+      {% if form.name.errors %}aria-invalid="true" aria-describedby="name-error"{% endif %}>
+    {% if form.name.errors %}<span class="field-error" id="name-error" role="alert">{{ form.name.errors|join:", " }}</span>{% endif %}
+  </div>
+  <div class="form-group">
+    <label for="id_email">Email Address <span aria-hidden="true">*</span></label>
+    <input type="email" name="email" id="id_email" value="{{ form.email.value|default:'' }}"
+      placeholder="your@email.com" autocomplete="email" inputmode="email" required
+      {% if form.email.errors %}aria-invalid="true" aria-describedby="email-error"{% endif %}>
+    {% if form.email.errors %}<span class="field-error" id="email-error" role="alert">{{ form.email.errors|join:", " }}</span>{% endif %}
+  </div>
+  <div class="form-group">
+    <label for="id_subject">Subject <span aria-hidden="true">*</span></label>
+    <input type="text" name="subject" id="id_subject" value="{{ form.subject.value|default:'' }}"
+      placeholder="How can we help?" required maxlength="200"
+      {% if form.subject.errors %}aria-invalid="true" aria-describedby="subject-error"{% endif %}>
+    {% if form.subject.errors %}<span class="field-error" id="subject-error" role="alert">{{ form.subject.errors|join:", " }}</span>{% endif %}
+  </div>
+  <div class="form-group">
+    <label for="id_message">Message <span aria-hidden="true">*</span></label>
+    <textarea name="message" id="id_message" rows="5" placeholder="Tell us about your project…" required
+      {% if form.message.errors %}aria-invalid="true" aria-describedby="message-error"{% endif %}>{{ form.message.value|default:'' }}</textarea>
+    {% if form.message.errors %}<span class="field-error" id="message-error" role="alert">{{ form.message.errors|join:", " }}</span>{% endif %}
+  </div>
+  <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+    Send Message
+    <svg width="18" height="18" aria-hidden="true"><use href="#icon-send"/></svg>
+  </button>
+</form>
