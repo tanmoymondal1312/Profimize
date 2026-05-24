@@ -5,7 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070b14">
 
-  {% include "partials/_seo.html" %}
+  {# ── Core meta ── #}
+  <title>{% block seo_title %}Profimize — Professional Digital Marketing Agency in Dhaka{% endblock %}</title>
+  <meta name="description" content="{% block seo_description %}Profimize is a top digital marketing agency in Dhaka offering website development, mobile app development, SEO, social media marketing, video production, and content marketing to grow your business online.{% endblock %}">
+  <meta name="robots" content="{% block seo_robots %}index,follow{% endblock %}">
+  <link rel="canonical" href="{% block seo_canonical %}{{ request.build_absolute_uri }}{% endblock %}">
+
+  {# ── Open Graph ── #}
+  <meta property="og:type"        content="{% block seo_og_type %}website{% endblock %}">
+  <meta property="og:site_name"   content="Profimize">
+  <meta property="og:locale"      content="en_US">
+  <meta property="og:title"       content="{% block seo_og_title %}{% block seo_og_title_inner %}Profimize — Professional Digital Marketing Agency{% endblock %}{% endblock %}">
+  <meta property="og:description" content="{% block seo_og_desc %}{% block seo_og_desc_inner %}Profimize offers website & mobile app development, SEO, social media marketing, video production and content marketing in Dhaka, Bangladesh.{% endblock %}{% endblock %}">
+  <meta property="og:url"         content="{{ request.build_absolute_uri }}">
+  <meta property="og:image"       content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-default.jpg' %}">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"   content="{% block seo_og_image_alt %}Profimize — Digital Marketing Agency in Dhaka{% endblock %}">
+
+  {# ── Twitter / X card ── #}
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@profimize">
+  <meta name="twitter:title"       content="{% block seo_tw_title %}Profimize — Professional Digital Marketing Agency{% endblock %}">
+  <meta name="twitter:description" content="{% block seo_tw_desc %}Website & app development, SEO, social media marketing, video production & content strategy — your digital growth partner in Dhaka.{% endblock %}">
+  <meta name="twitter:image"       content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-default.jpg' %}">
+  <meta name="twitter:image:alt"   content="Profimize — Digital Marketing Agency">
+
+  {# ── JSON-LD (page-level, base has Organization+WebSite) ── #}
+  {% block jsonld %}{% endblock %}
 
   {# Favicon #}
   <link rel="icon" href="{% static 'img/favicon/favicon.ico' %}" sizes="any">
