@@ -47,9 +47,14 @@
         <div class="sdc-body">
           <h2 class="sdc-title">{{ service.title }}</h2>
           <p class="sdc-desc">{{ service.description }}</p>
-          <a href="{% url 'pages:contact' %}" class="btn btn-primary btn-sm">
-            Get Started <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
-          </a>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;margin-top:1rem;">
+            <a href="{% url 'pages:service_detail' service.slug %}" class="btn btn-secondary btn-sm">
+              Read More <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+            <a href="{% url 'pages:contact' %}" class="btn btn-primary btn-sm">
+              Get Started <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+          </div>
         </div>
       </article>
       {% endfor %}
