@@ -2314,78 +2314,22 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   transform: translateY(-5px);
 }
 
-/* ── Icon container — gradient pill ─────────────────────────────── */
+/* ── Icon — no background, just a coloured SVG ───────────────────── */
 .stat-icon {
-  width: 54px; height: 54px;
-  border-radius: 16px;
+  width: 52px; height: 52px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: .4rem;
-  position: relative;
-  /* gradient painted via ::before so we can also add glow shadow */
-  transition: transform .35s cubic-bezier(.34,1.3,.64,1),
-              box-shadow .35s ease;
-  color: #fff;              /* SVG icons always white on gradient bg */
+  margin-bottom: .3rem;
+  background: none;
+  border: none;
+  box-shadow: none;
+  transition: transform .35s cubic-bezier(.34,1.3,.64,1);
   flex-shrink: 0;
 }
+.stat-icon::before { display: none; }          /* kill old gradient layer */
+.stat-item:hover .stat-icon { transform: scale(1.18) rotate(-6deg); }
 
-/* Gradient background layer */
-.stat-icon::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  transition: opacity .35s ease;
-}
-
-/* SVG sits above the gradient */
-.stat-icon svg { position: relative; z-index: 1; }
-
-.stat-item:hover .stat-icon {
-  transform: scale(1.12) rotate(-6deg);
-}
-
-/* ── Per-card gradient themes ──────────────────────────────────── */
-
-/* Card 1 — Cyan → Teal */
-.stat-item:nth-child(1) .stat-icon {
-  box-shadow: 0 6px 24px rgba(62,207,207,.35), 0 0 0 1px rgba(62,207,207,.2);
-}
-.stat-item:nth-child(1) .stat-icon::before {
-  background: linear-gradient(145deg, #3ecfcf 0%, #0ea5e9 55%, #0369a1 100%);
-}
-.stat-item:nth-child(1):hover .stat-icon {
-  box-shadow: 0 10px 32px rgba(62,207,207,.5), 0 0 0 1px rgba(62,207,207,.3);
-}
-
-/* Card 2 — Violet → Indigo */
-.stat-item:nth-child(2) .stat-icon {
-  box-shadow: 0 6px 24px rgba(167,139,250,.35), 0 0 0 1px rgba(167,139,250,.2);
-}
-.stat-item:nth-child(2) .stat-icon::before {
-  background: linear-gradient(145deg, #c084fc 0%, #818cf8 50%, #6366f1 100%);
-}
-.stat-item:nth-child(2):hover .stat-icon {
-  box-shadow: 0 10px 32px rgba(167,139,250,.5), 0 0 0 1px rgba(167,139,250,.3);
-}
-
-/* Card 3 — Sky → Blue */
-.stat-item:nth-child(3) .stat-icon {
-  box-shadow: 0 6px 24px rgba(56,189,248,.35), 0 0 0 1px rgba(56,189,248,.2);
-}
-.stat-item:nth-child(3) .stat-icon::before {
-  background: linear-gradient(145deg, #38bdf8 0%, #3b82f6 55%, #1d4ed8 100%);
-}
-.stat-item:nth-child(3):hover .stat-icon {
-  box-shadow: 0 10px 32px rgba(56,189,248,.5), 0 0 0 1px rgba(56,189,248,.3);
-}
-
-/* Card 4 — Amber → Orange */
-.stat-item:nth-child(4) .stat-icon {
-  box-shadow: 0 6px 24px rgba(251,191,36,.3), 0 0 0 1px rgba(251,191,36,.18);
-}
-.stat-item:nth-child(4) .stat-icon::before {
-  background: linear-gradient(145deg, #fbbf24 0%, #f97316 55%, #ea580c 100%);
-}
-.stat-item:nth-child(4):hover .stat-icon {
-  box-shadow: 0 10px 32px rgba(251,146,60,.5), 0 0 0 1px rgba(251,191,36,.3);
-}
+/* Per-card icon colour — gradient applied directly to the SVG via color */
+.stat-item:nth-child(1) .stat-icon { color: #3ecfcf; }   /* cyan   */
+.stat-item:nth-child(2) .stat-icon { color: #a78bfa; }   /* violet */
+.stat-item:nth-child(3) .stat-icon { color: #38bdf8; }   /* sky    */
+.stat-item:nth-child(4) .stat-icon { color: #fbbf24; }   /* amber  */
