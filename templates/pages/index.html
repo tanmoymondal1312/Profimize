@@ -36,7 +36,65 @@
     <div class="hero-blob hero-blob--1" aria-hidden="true"></div>
     <div class="hero-blob hero-blob--2" aria-hidden="true"></div>
     <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-nebula" aria-hidden="true"></div>
   </div>
+
+  {# Rotating orbit rings #}
+  <div class="hero-orbits" aria-hidden="true">
+    <div class="hero-orbit" style="width:500px;height:500px;--o-dur:28s"></div>
+    <div class="hero-orbit" style="width:780px;height:780px;--o-dur:42s;animation-direction:reverse;--o-color:rgba(167,139,250,.08)"></div>
+    <div class="hero-orbit" style="width:1060px;height:1060px;--o-dur:58s;--o-color:rgba(62,207,207,.05)"></div>
+  </div>
+
+  {# Shooting comets — LTR #}
+  <div class="hero-comets" aria-hidden="true">
+    <div class="hero-comet" style="--c-top:6%;  --c-w:240px;--c-dur:4.5s;--c-delay:0s;   --c-color:rgba(56,189,248,.95)"></div>
+    <div class="hero-comet" style="--c-top:18%; --c-w:170px;--c-dur:7s;  --c-delay:2.2s; --c-color:rgba(167,139,250,.9)"></div>
+    <div class="hero-comet" style="--c-top:34%; --c-w:300px;--c-dur:5s;  --c-delay:4.8s; --c-color:rgba(62,207,207,.95)"></div>
+    <div class="hero-comet" style="--c-top:52%; --c-w:190px;--c-dur:6.5s;--c-delay:1s;   --c-color:rgba(99,102,241,.85)"></div>
+    <div class="hero-comet" style="--c-top:72%; --c-w:210px;--c-dur:8s;  --c-delay:5.5s; --c-color:rgba(56,189,248,.8)"></div>
+    <div class="hero-comet" style="--c-top:88%; --c-w:150px;--c-dur:5.5s;--c-delay:3s;   --c-color:rgba(251,191,36,.8)"></div>
+    {# RTL comets #}
+    <div class="hero-comet hero-comet--rtl" style="--c-top:10%;--c-w:200px;--c-dur:5s;  --c-delay:1.5s;--c-color:rgba(167,139,250,.95)"></div>
+    <div class="hero-comet hero-comet--rtl" style="--c-top:30%;--c-w:260px;--c-dur:7.5s;--c-delay:0.5s;--c-color:rgba(62,207,207,.85)"></div>
+    <div class="hero-comet hero-comet--rtl" style="--c-top:60%;--c-w:160px;--c-dur:6s;  --c-delay:7s;  --c-color:rgba(56,189,248,.9)"></div>
+    <div class="hero-comet hero-comet--rtl" style="--c-top:80%;--c-w:180px;--c-dur:9s;  --c-delay:3.5s;--c-color:rgba(99,102,241,.75)"></div>
+  </div>
+
+  {# Twinkling stars #}
+  <div class="hero-stars" aria-hidden="true">
+    <div class="hero-star" style="--s-top:4%;  --s-left:8%;  --s-size:2px;  --s-dur:2.1s;--s-delay:0s;   --s-color:rgba(255,255,255,.9)"></div>
+    <div class="hero-star" style="--s-top:12%; --s-left:22%; --s-size:1.5px;--s-dur:3s;  --s-delay:0.7s; --s-color:rgba(56,189,248,.85)"></div>
+    <div class="hero-star" style="--s-top:7%;  --s-left:38%; --s-size:2.5px;--s-dur:2.5s;--s-delay:1.4s; --s-color:rgba(255,255,255,.8)"></div>
+    <div class="hero-star" style="--s-top:20%; --s-left:55%; --s-size:1px;  --s-dur:1.8s;--s-delay:0.3s; --s-color:rgba(167,139,250,.9)"></div>
+    <div class="hero-star" style="--s-top:5%;  --s-left:70%; --s-size:2px;  --s-dur:2.8s;--s-delay:2s;   --s-color:rgba(62,207,207,.8)"></div>
+    <div class="hero-star" style="--s-top:15%; --s-left:82%; --s-size:3px;  --s-dur:1.9s;--s-delay:0.5s; --s-color:rgba(255,255,255,.75)"></div>
+    <div class="hero-star" style="--s-top:28%; --s-left:92%; --s-size:1.5px;--s-dur:3.2s;--s-delay:1.8s; --s-color:rgba(56,189,248,.9)"></div>
+    <div class="hero-star" style="--s-top:40%; --s-left:5%;  --s-size:2px;  --s-dur:2.4s;--s-delay:0.9s; --s-color:rgba(99,102,241,.8)"></div>
+    <div class="hero-star" style="--s-top:50%; --s-left:16%; --s-size:1px;  --s-dur:2.9s;--s-delay:2.5s; --s-color:rgba(255,255,255,.7)"></div>
+    <div class="hero-star" style="--s-top:35%; --s-left:30%; --s-size:2.5px;--s-dur:1.7s;--s-delay:1.2s; --s-color:rgba(62,207,207,.85)"></div>
+    <div class="hero-star" style="--s-top:60%; --s-left:44%; --s-size:1.5px;--s-dur:3.5s;--s-delay:0.4s; --s-color:rgba(167,139,250,.75)"></div>
+    <div class="hero-star" style="--s-top:45%; --s-left:62%; --s-size:2px;  --s-dur:2.2s;--s-delay:1.7s; --s-color:rgba(255,255,255,.85)"></div>
+    <div class="hero-star" style="--s-top:70%; --s-left:76%; --s-size:1px;  --s-dur:2.7s;--s-delay:0.6s; --s-color:rgba(56,189,248,.8)"></div>
+    <div class="hero-star" style="--s-top:80%; --s-left:88%; --s-size:2.5px;--s-dur:2s;  --s-delay:3s;   --s-color:rgba(99,102,241,.9)"></div>
+    <div class="hero-star" style="--s-top:90%; --s-left:12%; --s-size:1.5px;--s-dur:3.1s;--s-delay:1.5s; --s-color:rgba(255,255,255,.7)"></div>
+    <div class="hero-star" style="--s-top:85%; --s-left:33%; --s-size:2px;  --s-dur:2.3s;--s-delay:0.2s; --s-color:rgba(62,207,207,.75)"></div>
+    <div class="hero-star" style="--s-top:75%; --s-left:50%; --s-size:1px;  --s-dur:1.6s;--s-delay:2.8s; --s-color:rgba(167,139,250,.85)"></div>
+    <div class="hero-star" style="--s-top:65%; --s-left:68%; --s-size:2.5px;--s-dur:2.6s;--s-delay:1.1s; --s-color:rgba(255,255,255,.8)"></div>
+    <div class="hero-star" style="--s-top:95%; --s-left:80%; --s-size:1.5px;--s-dur:3.4s;--s-delay:0.8s; --s-color:rgba(56,189,248,.7)"></div>
+    <div class="hero-star" style="--s-top:55%; --s-left:95%; --s-size:2px;  --s-dur:2s;  --s-delay:4s;   --s-color:rgba(251,191,36,.75)"></div>
+    <div class="hero-star" style="--s-top:22%; --s-left:3%;  --s-size:1px;  --s-dur:2.9s;--s-delay:2.2s; --s-color:rgba(62,207,207,.9)"></div>
+    <div class="hero-star" style="--s-top:9%;  --s-left:48%; --s-size:3px;  --s-dur:1.5s;--s-delay:0.1s; --s-color:rgba(255,255,255,.9)"></div>
+    <div class="hero-star" style="--s-top:43%; --s-left:75%; --s-size:1.5px;--s-dur:2.4s;--s-delay:3.5s; --s-color:rgba(99,102,241,.8)"></div>
+    <div class="hero-star" style="--s-top:78%; --s-left:20%; --s-size:2px;  --s-dur:3.3s;--s-delay:1.6s; --s-color:rgba(167,139,250,.7)"></div>
+    <div class="hero-star" style="--s-top:32%; --s-left:58%; --s-size:1px;  --s-dur:2.7s;--s-delay:0.9s; --s-color:rgba(56,189,248,.85)"></div>
+    <div class="hero-star" style="--s-top:18%; --s-left:91%; --s-size:2.5px;--s-dur:1.9s;--s-delay:2.4s; --s-color:rgba(255,255,255,.75)"></div>
+    <div class="hero-star" style="--s-top:62%; --s-left:37%; --s-size:1.5px;--s-dur:2.8s;--s-delay:1.3s; --s-color:rgba(62,207,207,.8)"></div>
+    <div class="hero-star" style="--s-top:48%; --s-left:85%; --s-size:2px;  --s-dur:3.6s;--s-delay:0.5s; --s-color:rgba(251,191,36,.7)"></div>
+    <div class="hero-star" style="--s-top:88%; --s-left:55%; --s-size:1px;  --s-dur:2.1s;--s-delay:4.5s; --s-color:rgba(167,139,250,.9)"></div>
+    <div class="hero-star" style="--s-top:25%; --s-left:42%; --s-size:3px;  --s-dur:1.7s;--s-delay:2.9s; --s-color:rgba(56,189,248,.8)"></div>
+  </div>
+
   {# Floating particle orbs #}
   <div class="hero-particles" aria-hidden="true">
     <div class="hero-particle" style="--p-x:8%;  --p-size:5px; --p-color:rgba(62,207,207,.7);  --p-dur:7s;  --p-delay:0s"></div>
@@ -55,19 +113,23 @@
     <div class="hero-particle" style="--p-x:78%; --p-size:3px; --p-color:rgba(62,207,207,.7);  --p-dur:8.2s;--p-delay:4.5s"></div>
     <div class="hero-particle" style="--p-x:90%; --p-size:4px; --p-color:rgba(56,189,248,.6);  --p-dur:7.2s;--p-delay:2.3s"></div>
   </div>
+
   <div class="container hero-content">
-    <p class="section-label hero-badge-anim">Digital Marketing Agency</p>
-    <h1 class="hero-title hero-title-anim">
-      Grow Your Business with
-      <span class="gradient-text">Professional Marketing</span>
+    <p class="section-label hero-badge-anim">✦ Digital Marketing Agency ✦</p>
+    <h1 class="hero-title">
+      <span class="hw hw1">Grow</span>
+      <span class="hw hw2">Your</span>
+      <span class="hw hw3">Business</span>
+      <span class="hw hw4">with</span>
+      <span class="hw hw5 hw-block"><span class="gradient-text">Professional Marketing</span></span>
     </h1>
     <p class="hero-desc hero-desc-anim">We craft data-driven strategies — web development, SEO, social media, video, and content — that turn visitors into loyal customers and fuel measurable growth.</p>
     <div class="hero-actions hero-actions-anim">
-      <a href="{% url 'pages:contact' %}" class="btn btn-primary btn-lg">
+      <a href="{% url 'pages:contact' %}" class="btn btn-primary btn-lg hero-cta-primary">
         Start Your Growth
         <svg width="18" height="18" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
       </a>
-      <a href="{% url 'pages:services' %}" class="btn btn-secondary btn-lg">Explore Services</a>
+      <a href="{% url 'pages:services' %}" class="btn btn-secondary btn-lg hero-cta-secondary">Explore Services</a>
     </div>
     <div class="hero-trust hero-trust-anim">
       <span class="trust-badge">✓ 50+ Happy Clients</span>

@@ -1997,3 +1997,240 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   left: var(--p-x, 50%);
   filter: blur(1px);
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   HERO — PREMIUM v3: COMETS · STARS · ORBITS · NEBULA · WORD REVEAL
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Nebula aurora backdrop ─────────────────────────────────────── */
+.hero-nebula {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 75% 15%, rgba(99,102,241,.09) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 90% at 20% 75%, rgba(56,189,248,.07) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 55% at 85% 80%, rgba(62,207,207,.06) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 10% 20%, rgba(167,139,250,.06) 0%, transparent 55%);
+  animation: nebulaDrift 18s ease-in-out infinite alternate;
+}
+@keyframes nebulaDrift {
+  0%   { opacity: .6; transform: scale(1) translate(0, 0); }
+  50%  { opacity: .9; transform: scale(1.04) translate(-12px, 8px); }
+  100% { opacity: .7; transform: scale(1.02) translate(12px, -8px); }
+}
+
+/* ── Orbit rings ────────────────────────────────────────────────── */
+.hero-orbits {
+  position: absolute;
+  top: 50%; right: -220px;
+  transform: translateY(-50%);
+  pointer-events: none; z-index: 0;
+}
+.hero-orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  border: 1px solid var(--o-color, rgba(56,189,248,.09));
+  transform: translate(-50%, -50%);
+  animation: orbitSpin var(--o-dur, 30s) linear infinite;
+}
+.hero-orbit::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: 50%;
+  transform: translateX(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(56,189,248,.7);
+  box-shadow: 0 0 10px 3px rgba(56,189,248,.4);
+}
+.hero-orbit:nth-child(2)::before {
+  background: rgba(167,139,250,.7);
+  box-shadow: 0 0 10px 3px rgba(167,139,250,.4);
+}
+.hero-orbit:nth-child(3)::before {
+  background: rgba(62,207,207,.7);
+  box-shadow: 0 0 10px 3px rgba(62,207,207,.4);
+  top: auto; bottom: -3px;
+}
+@keyframes orbitSpin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ── Shooting comets ────────────────────────────────────────────── */
+.hero-comets {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+}
+.hero-comet {
+  position: absolute;
+  top: var(--c-top, 20%);
+  left: 0;
+  width: var(--c-w, 200px);
+  height: 2px;
+  background: linear-gradient(to right, transparent 0%, var(--c-color, rgba(56,189,248,.9)) 100%);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 8px var(--c-color, rgba(56,189,248,.5)));
+  animation: cometFly var(--c-dur, 5s) ease-out var(--c-delay, 0s) infinite;
+}
+/* Glowing head dot */
+.hero-comet::before {
+  content: '';
+  position: absolute;
+  right: -2px; top: 50%;
+  transform: translateY(-50%);
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--c-color, rgba(56,189,248,.9));
+  box-shadow: 0 0 12px 5px var(--c-color, rgba(56,189,248,.4));
+}
+/* Right-to-left variant */
+.hero-comet--rtl {
+  background: linear-gradient(to right, var(--c-color, rgba(56,189,248,.9)) 0%, transparent 100%);
+  animation-name: cometFlyRTL;
+}
+.hero-comet--rtl::before {
+  right: auto; left: -2px;
+}
+
+@keyframes cometFly {
+  0%   { transform: rotate(-38deg) translateX(-160vw); opacity: 0; }
+  5%   { opacity: 1; }
+  88%  { opacity: .9; }
+  100% { transform: rotate(-38deg) translateX(160vw); opacity: 0; }
+}
+@keyframes cometFlyRTL {
+  0%   { transform: rotate(38deg) translateX(160vw); opacity: 0; }
+  5%   { opacity: 1; }
+  88%  { opacity: .9; }
+  100% { transform: rotate(38deg) translateX(-160vw); opacity: 0; }
+}
+
+/* ── Twinkling stars ────────────────────────────────────────────── */
+.hero-stars {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+}
+.hero-star {
+  position: absolute;
+  top: var(--s-top, 50%);
+  left: var(--s-left, 50%);
+  width: var(--s-size, 2px);
+  height: var(--s-size, 2px);
+  border-radius: 50%;
+  background: var(--s-color, rgba(255,255,255,.8));
+  filter: drop-shadow(0 0 3px var(--s-color, rgba(255,255,255,.6)));
+  animation: starTwinkle var(--s-dur, 2.5s) ease-in-out var(--s-delay, 0s) infinite;
+}
+/* Cross-shaped bright stars every 5th */
+.hero-star:nth-child(5n) {
+  box-shadow:
+    0 -5px 0 rgba(255,255,255,.08),
+    0  5px 0 rgba(255,255,255,.08),
+   -5px 0  0 rgba(255,255,255,.08),
+    5px 0  0 rgba(255,255,255,.08);
+}
+@keyframes starTwinkle {
+  0%, 100% { opacity: .9;  transform: scale(1); }
+  40%       { opacity: .08; transform: scale(.3); }
+  70%       { opacity: .6;  transform: scale(.8); }
+}
+
+/* ── Word-by-word title reveal ──────────────────────────────────── */
+@keyframes wordReveal {
+  0%   { opacity: 0; transform: translateY(48px) rotateX(-50deg); filter: blur(10px); }
+  60%  { filter: blur(0); }
+  80%  { transform: translateY(-6px) rotateX(4deg); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0); filter: blur(0); }
+}
+.hero-title {
+  perspective: 1000px;
+}
+.hw {
+  display: inline-block;
+  animation: wordReveal .7s cubic-bezier(.16,1,.3,1) both;
+  will-change: transform, opacity;
+}
+.hw-block { display: block; }
+.hw1 { animation-delay: .1s;  }
+.hw2 { animation-delay: .22s; }
+.hw3 { animation-delay: .36s; }
+.hw4 { animation-delay: .50s; }
+.hw5 { animation-delay: .68s; }
+
+/* Gradient text on word-split title (no longer inside hero-title-anim) */
+.hw5 .gradient-text {
+  background: linear-gradient(270deg, #3ecfcf, #6366f1, #a78bfa, #38bdf8, #3ecfcf);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradShimmer 5s ease 1.2s infinite;
+}
+
+/* ── Hero badge — enhanced shimmer glow ────────────────────────── */
+@keyframes badgePulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(62,207,207,0), 0 0 0 0 rgba(62,207,207,0); }
+  50%      { box-shadow: 0 0 20px rgba(62,207,207,.25), 0 0 40px rgba(62,207,207,.08); }
+}
+.hero-badge-anim {
+  animation: heroBadge .9s cubic-bezier(.22,.61,.36,1) .1s both,
+             badgePulse 3s ease-in-out 1.5s infinite !important;
+}
+
+/* ── Hero desc — clip-path line reveal ─────────────────────────── */
+@keyframes heroDescReveal {
+  0%   { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(16px); }
+  40%  { opacity: 1; }
+  100% { opacity: 1; clip-path: inset(0 0 0% 0); transform: translateY(0); }
+}
+.hero-desc-anim {
+  animation: heroDescReveal 1s cubic-bezier(.16,1,.3,1) .85s both !important;
+}
+
+/* ── Hero CTA buttons — stagger pop-in ─────────────────────────── */
+@keyframes heroBtn {
+  0%   { opacity: 0; transform: translateY(28px) scale(.88); }
+  65%  { transform: translateY(-5px) scale(1.03); }
+  85%  { transform: translateY(2px) scale(.99); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.hero-actions.hero-actions-anim {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.hero-cta-primary {
+  animation: heroBtn .75s cubic-bezier(.34,1.4,.64,1) .95s both,
+             btnGlow 2.4s ease-in-out 2.2s infinite !important;
+  position: relative; overflow: hidden;
+}
+.hero-cta-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.22), transparent);
+  transform: skewX(-20deg);
+  animation: btnShine 3.5s ease-in-out 2.8s infinite;
+}
+.hero-cta-secondary {
+  animation: heroBtn .75s cubic-bezier(.34,1.4,.64,1) 1.12s both !important;
+}
+
+/* ── Trust badges — pop-in stagger ─────────────────────────────── */
+@keyframes trustPop {
+  0%   { opacity: 0; transform: scale(.65) translateY(14px); }
+  60%  { transform: scale(1.06) translateY(-3px); }
+  80%  { transform: scale(.98) translateY(1px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.hero-trust-anim { animation: none !important; opacity: 1 !important; transform: none !important; }
+.hero-trust-anim .trust-badge:nth-child(1) { animation: trustPop .65s cubic-bezier(.34,1.56,.64,1) 1.28s both !important; }
+.hero-trust-anim .trust-badge:nth-child(2) { animation: trustPop .65s cubic-bezier(.34,1.56,.64,1) 1.46s both !important; }
+.hero-trust-anim .trust-badge:nth-child(3) { animation: trustPop .65s cubic-bezier(.34,1.56,.64,1) 1.64s both !important; }
+
+/* ── Disable hero comet/star/orbit on reduced motion ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-comet, .hero-star, .hero-orbit, .hero-nebula { animation: none !important; }
+  .hw { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
+  .hero-cta-primary, .hero-cta-secondary { animation: none !important; opacity: 1 !important; }
+  .hero-trust-anim .trust-badge { animation: none !important; opacity: 1 !important; }
+}
