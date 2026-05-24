@@ -465,7 +465,7 @@ body::before {
   background-size: 60px 60px;
 }
 .hero-content {
-  position: relative; z-index: 1;
+  position: relative; z-index: 3; /* above hero::after overlay (z-index:2) */
   padding-block: 4rem;
   max-width: 780px;
 }
