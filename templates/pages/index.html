@@ -135,14 +135,33 @@
     <div class="stats-grid">
       {% for stat in stats %}
       <div class="stat-item fx-scale d{{ forloop.counter }}">
+        <div class="stat-icon">
+          {% if forloop.counter == 1 %}<svg width="22" height="22" aria-hidden="true"><use href="#icon-users"/></svg>
+          {% elif forloop.counter == 2 %}<svg width="22" height="22" aria-hidden="true"><use href="#icon-briefcase"/></svg>
+          {% elif forloop.counter == 3 %}<svg width="22" height="22" aria-hidden="true"><use href="#icon-trending-up"/></svg>
+          {% else %}<svg width="22" height="22" aria-hidden="true"><use href="#icon-star"/></svg>
+          {% endif %}
+        </div>
         <span class="stat-value" data-target="{{ stat.value }}">{{ stat.value }}</span>
         <span class="stat-label">{{ stat.label }}</span>
       </div>
       {% empty %}
-      <div class="stat-item fx-scale d1"><span class="stat-value" data-target="50">50+</span><span class="stat-label">Happy Clients</span></div>
-      <div class="stat-item fx-scale d2"><span class="stat-value" data-target="100">100+</span><span class="stat-label">Projects Delivered</span></div>
-      <div class="stat-item fx-scale d3"><span class="stat-value" data-target="3">3+</span><span class="stat-label">Years Experience</span></div>
-      <div class="stat-item fx-scale d4"><span class="stat-value" data-target="100">100%</span><span class="stat-label">Client Satisfaction</span></div>
+      <div class="stat-item fx-scale d1">
+        <div class="stat-icon"><svg width="22" height="22" aria-hidden="true"><use href="#icon-users"/></svg></div>
+        <span class="stat-value" data-target="50">50+</span><span class="stat-label">Happy Clients</span>
+      </div>
+      <div class="stat-item fx-scale d2">
+        <div class="stat-icon"><svg width="22" height="22" aria-hidden="true"><use href="#icon-briefcase"/></svg></div>
+        <span class="stat-value" data-target="100">100+</span><span class="stat-label">Projects Delivered</span>
+      </div>
+      <div class="stat-item fx-scale d3">
+        <div class="stat-icon"><svg width="22" height="22" aria-hidden="true"><use href="#icon-trending-up"/></svg></div>
+        <span class="stat-value" data-target="3">3+</span><span class="stat-label">Years Experience</span>
+      </div>
+      <div class="stat-item fx-scale d4">
+        <div class="stat-icon"><svg width="22" height="22" aria-hidden="true"><use href="#icon-star"/></svg></div>
+        <span class="stat-value" data-target="100">100%</span><span class="stat-label">Client Satisfaction</span>
+      </div>
       {% endfor %}
     </div>
   </div>

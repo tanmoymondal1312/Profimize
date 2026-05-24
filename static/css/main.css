@@ -2199,3 +2199,68 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   /* Stop the page-wide color sweep gradient animation (main perf killer) */
   body.page-home::before { animation: none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   STATS STRIP — Card redesign with icons + rounded corners
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Each stat becomes a glass card with rounded corners */
+.stat-item {
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 18px;
+  padding: 1.6rem 1rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .45rem;
+  transition: border-color .35s ease, background .35s ease, transform .35s ease;
+  position: relative;
+  overflow: hidden;        /* clips backdrop glow at rounded corners */
+}
+.stat-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(62,207,207,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.stat-item:hover {
+  border-color: rgba(62,207,207,.22);
+  background: rgba(255,255,255,.06);
+  transform: translateY(-4px);
+}
+
+/* Icon container */
+.stat-icon {
+  width: 50px; height: 50px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .3rem;
+  border: 1px solid transparent;
+  transition: transform .3s ease;
+}
+.stat-item:hover .stat-icon { transform: scale(1.1) rotate(-4deg); }
+
+/* Per-card icon accent colours */
+.stat-item:nth-child(1) .stat-icon {
+  background: linear-gradient(135deg, rgba(62,207,207,.18), rgba(56,189,248,.12));
+  border-color: rgba(62,207,207,.28);
+  color: #3ecfcf;
+}
+.stat-item:nth-child(2) .stat-icon {
+  background: linear-gradient(135deg, rgba(167,139,250,.18), rgba(99,102,241,.12));
+  border-color: rgba(167,139,250,.28);
+  color: #a78bfa;
+}
+.stat-item:nth-child(3) .stat-icon {
+  background: linear-gradient(135deg, rgba(56,189,248,.18), rgba(99,102,241,.12));
+  border-color: rgba(56,189,248,.28);
+  color: #38bdf8;
+}
+.stat-item:nth-child(4) .stat-icon {
+  background: linear-gradient(135deg, rgba(251,191,36,.15), rgba(251,146,60,.1));
+  border-color: rgba(251,191,36,.28);
+  color: #fbbf24;
+}
