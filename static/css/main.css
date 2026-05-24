@@ -71,7 +71,11 @@
 
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden; /* belt */
+}
 body {
   background: var(--bg-900);
   color: var(--text);
@@ -79,8 +83,9 @@ body {
   font-size: 1.0625rem;
   line-height: 1.7;
   min-height: 100vh;
-  overflow-x: hidden;
-  /* Bottom nav removed — no padding needed */
+  overflow-x: hidden; /* suspenders — clamp horizontal scroll on every browser */
+  width: 100%;
+  max-width: 100vw;
 }
 
 
@@ -1639,12 +1644,12 @@ body.page-home .section > .container.about-grid {
 .sec-blob--cr { top: 50%; right: -200px; transform: translateY(-50%); }
 .sec-blob--cl { top: 50%; left: -200px; transform: translateY(-50%); }
 
-/* ── 5. Directional animation classes ─────────────────────────── */
+/* ── 5. Directional animation classes (base — overridden below) ── */
 
 /* From left */
 .fx-l {
   opacity: 0;
-  transform: translateX(-64px);
+  transform: translateX(-60px);
   transition:
     opacity .8s cubic-bezier(.22, .61, .36, 1),
     transform .8s cubic-bezier(.22, .61, .36, 1);
@@ -1652,7 +1657,7 @@ body.page-home .section > .container.about-grid {
 /* From right */
 .fx-r {
   opacity: 0;
-  transform: translateX(64px);
+  transform: translateX(60px);
   transition:
     opacity .8s cubic-bezier(.22, .61, .36, 1),
     transform .8s cubic-bezier(.22, .61, .36, 1);
@@ -1838,28 +1843,31 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
 }
 .scroll-dot { animation: scrollBounce 1.6s ease-in-out infinite; }
 
-/* ── Scroll-reveal animations — dramatic left/right/up/scale ────── */
+/* ── Scroll-reveal animations — left/right/up/scale ───────────── */
+/* NOTE: translate values kept ≤ 60px so they never exceed half the
+   narrowest mobile viewport (320px). Sections also use overflow:clip
+   below to prevent any bleed. */
 
-/* FROM LEFT — slides in from 160px left of normal position */
+/* FROM LEFT */
 .fx-l {
   opacity: 0 !important;
-  transform: translateX(-160px) !important;
+  transform: translateX(-60px) !important;
   transition:
     opacity 1s cubic-bezier(.16,1,.3,1),
     transform 1.05s cubic-bezier(.16,1,.3,1) !important;
 }
-/* FROM RIGHT — slides in from 160px right */
+/* FROM RIGHT */
 .fx-r {
   opacity: 0 !important;
-  transform: translateX(160px) !important;
+  transform: translateX(60px) !important;
   transition:
     opacity 1s cubic-bezier(.16,1,.3,1),
     transform 1.05s cubic-bezier(.16,1,.3,1) !important;
 }
-/* FROM BOTTOM — rises up */
+/* FROM BOTTOM */
 .fx-u {
   opacity: 0 !important;
-  transform: translateY(90px) !important;
+  transform: translateY(60px) !important;
   transition:
     opacity .95s cubic-bezier(.16,1,.3,1),
     transform .95s cubic-bezier(.16,1,.3,1) !important;
@@ -1867,7 +1875,7 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
 /* SCALE POP */
 .fx-scale {
   opacity: 0 !important;
-  transform: scale(.75) translateY(50px) !important;
+  transform: scale(.82) translateY(40px) !important;
   transition:
     opacity .8s cubic-bezier(.34,1.3,.64,1),
     transform .8s cubic-bezier(.34,1.3,.64,1) !important;
@@ -1880,6 +1888,21 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
 .fx-scale.in-view {
   opacity: 1 !important;
   transform: none !important;
+}
+
+/* Every section clips its own overflow so fx-l/fx-r can never
+   cause a horizontal scrollbar even on the narrowest screen. */
+.section,
+.hero,
+.about-section,
+.services-section,
+.portfolio-section,
+.stats-section,
+.approach-section,
+.testimonials-section,
+.blog-preview-section,
+.cta-section {
+  overflow-x: clip; /* clip ≠ hidden — doesn't create scroll context */
 }
 
 /* ── Service card — 3D perspective hover ────────────────────────── */
@@ -1932,8 +1955,9 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
 .stat-item:nth-child(4) { --si: 3; }
 
 /* ── Approach step — left/right alternating for 1st & 3rd ──────── */
-.approach-grid .approach-step:nth-child(1).fx-u { transform: translateX(-80px) translateY(60px) !important; }
-.approach-grid .approach-step:nth-child(3).fx-u { transform: translateX(80px) translateY(60px) !important; }
+/* Keep translateX ≤ 60px to prevent horizontal overflow on mobile */
+.approach-grid .approach-step:nth-child(1).fx-u { transform: translateX(-50px) translateY(50px) !important; }
+.approach-grid .approach-step:nth-child(3).fx-u { transform: translateX(50px) translateY(50px) !important; }
 .approach-grid .approach-step.fx-u.in-view       { transform: none !important; }
 
 /* ── Section header reveal — title clips up ────────────────────── */
