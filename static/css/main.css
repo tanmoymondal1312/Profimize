@@ -80,9 +80,9 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   overflow-x: hidden;
-  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  /* Bottom nav removed — no padding needed */
 }
-@media (min-width: 768px) { body { padding-bottom: 0; } }
+
 
 img, video { max-width: 100%; height: auto; display: block; }
 a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
@@ -378,35 +378,8 @@ body::before {
 }
 .drawer-link.active { color: var(--primary); }
 
-/* ── Bottom tab bar (mobile) ── */
-.mobile-bottom-nav {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 90;
-  display: flex;
-  background: rgba(11,18,32,.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-@media (min-width: 768px) { .mobile-bottom-nav { display: none; } }
-.bottom-tab {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  padding: .65rem .5rem;
-  color: var(--text-mute);
-  font-size: .65rem;
-  font-weight: 500;
-  transition: color var(--transition);
-  min-height: 56px;
-}
-.bottom-tab:hover, .bottom-tab.active { color: var(--primary); }
-.bottom-tab.active svg { filter: drop-shadow(0 0 6px rgba(45,212,191,.5)); }
+/* Bottom tab bar removed — hidden everywhere */
+.mobile-bottom-nav { display: none !important; }
 
 /* ── Alerts / Messages ── */
 .messages-container {
@@ -2056,23 +2029,21 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* ── Shooting comets — simple, white, straight, slow ────────────── */
+/* ── Shooting comets — appear at random screen positions, flash & vanish ── */
 .hero-comets {
   position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
 }
 .hero-comet {
   position: absolute;
-  top: var(--c-top, 30%);
-  left: 0;
   width: 100px;
   height: 5px;
   border-radius: 3px;
-  /* Tail: transparent, head: white — head is on the RIGHT for LTR */
-  background: linear-gradient(to right, transparent 0%, rgba(255,255,255,.85) 100%);
-  filter: drop-shadow(0 0 5px rgba(255,255,255,.5));
-  animation: cometLTR var(--c-dur, 14s) linear var(--c-delay, 0s) infinite;
+  /* Tail=transparent (left), Head=white (right) — LTR default */
+  background: linear-gradient(to right, transparent 0%, rgba(255,255,255,.88) 100%);
+  filter: drop-shadow(0 0 5px rgba(255,255,255,.45));
+  animation: cometFlash var(--c-dur, 14s) linear var(--c-delay, 0s) infinite;
 }
-/* Glowing head dot — faces forward */
+/* Glowing head dot — right side = leading edge for LTR */
 .hero-comet::before {
   content: '';
   position: absolute;
@@ -2081,29 +2052,37 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   width: 9px; height: 9px;
   border-radius: 50%;
   background: rgba(255,255,255,.95);
-  box-shadow: 0 0 12px 5px rgba(255,255,255,.35);
-}
-/* RTL — head on LEFT, tail on right */
-.hero-comet--rtl {
-  background: linear-gradient(to right, rgba(255,255,255,.85) 0%, transparent 100%);
-  animation-name: cometRTL;
-}
-.hero-comet--rtl::before {
-  right: auto; left: -4px;
+  box-shadow: 0 0 12px 5px rgba(255,255,255,.3);
 }
 
-/* Straight horizontal movement — no rotation, no vw mix-up */
-@keyframes cometLTR {
-  0%   { transform: translateX(-120px); opacity: 0; }
-  5%   { opacity: .9; }
-  92%  { opacity: .85; }
-  100% { transform: translateX(105vw);  opacity: 0; }
+/* Each comet placed at a different screen position */
+.hero-comet:nth-child(1) { top: 18%; left: 62%; }  /* upper-right → moves right  */
+.hero-comet:nth-child(2) { top: 50%; left: 30%; }  /* middle-left  → moves left  */
+.hero-comet:nth-child(3) { top: 78%; left: 46%; }  /* lower-center → moves right */
+
+/* RTL variant — head on LEFT, tail on right */
+.hero-comet--rtl {
+  background: linear-gradient(to right, rgba(255,255,255,.88) 0%, transparent 100%);
+  animation-name: cometFlashRTL;
 }
-@keyframes cometRTL {
-  0%   { transform: translateX(105vw);  opacity: 0; }
-  5%   { opacity: .9; }
-  92%  { opacity: .85; }
-  100% { transform: translateX(-120px); opacity: 0; }
+.hero-comet--rtl::before { right: auto; left: -4px; }
+
+/*
+  Flash keyframe: comet is INVISIBLE for most of the cycle.
+  Appears briefly at its fixed screen position, travels ~210px, then vanishes.
+  Different durations + delays = they never all fire at the same time → feels random.
+*/
+@keyframes cometFlash {
+  0%    { transform: translateX(0);     opacity: 0; }
+  4%    { opacity: .9; }
+  22%   { transform: translateX(215px); opacity: 0; }
+  100%  { transform: translateX(215px); opacity: 0; }
+}
+@keyframes cometFlashRTL {
+  0%    { transform: translateX(0);      opacity: 0; }
+  4%    { opacity: .9; }
+  22%   { transform: translateX(-215px); opacity: 0; }
+  100%  { transform: translateX(-215px); opacity: 0; }
 }
 
 /* ── Twinkling stars ────────────────────────────────────────────── */
@@ -2235,4 +2214,46 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   .hw { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
   .hero-cta-primary, .hero-cta-secondary { animation: none !important; opacity: 1 !important; }
   .hero-trust-anim .trust-badge { animation: none !important; opacity: 1 !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE PERFORMANCE — disable heavy hero animations on phones
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Kill orbit rings entirely — not visible on narrow screens anyway */
+  .hero-orbits { display: none !important; }
+
+  /* Static nebula — no drift animation */
+  .hero-nebula { animation: none !important; }
+
+  /* Keep only first 8 stars, hide the rest */
+  .hero-star:nth-child(n+9) { display: none !important; }
+
+  /* Keep only first 5 particles, hide the rest */
+  .hero-particle:nth-child(n+6) { display: none !important; }
+
+  /* Remove GPU-heavy drop-shadow filter on comets */
+  .hero-comet { filter: none !important; }
+  .hero-comet::before { box-shadow: 0 0 6px 3px rgba(255,255,255,.25) !important; }
+
+  /* Simplify hero text animations — remove blur (expensive on low-end GPU) */
+  .hw {
+    animation-name: wordRevealMobile !important;
+  }
+  @keyframes wordRevealMobile {
+    0%   { opacity: 0; transform: translateY(32px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Remove blur from desc reveal */
+  .hero-desc-anim {
+    animation-name: heroDescMobile !important;
+  }
+  @keyframes heroDescMobile {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Stop the page-wide color sweep gradient animation (main perf killer) */
+  body.page-home::before { animation: none !important; }
 }
