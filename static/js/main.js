@@ -44,9 +44,11 @@
   const REVEAL_SEL = '.reveal, .fx-l, .fx-r, .fx-u, .fx-scale';
   const HERO_ANIM  = '.hero-badge-anim,.hero-title-anim,.hero-desc-anim,.hero-actions-anim,.hero-trust-anim';
 
-  if (!reduced) {
+  // IO observer ALWAYS runs for scroll reveals — we never skip it.
+  // `reduced` only disables potentially disorienting hero keyframe animations.
+  {
     const allReveal = document.querySelectorAll(REVEAL_SEL);
-    // Filter out elements that are inside the hero (those animate via keyframes)
+    // Filter out elements that are inside the hero (those animate via CSS keyframes)
     const heroEl = document.querySelector('.hero');
     const reveals = Array.from(allReveal).filter((el) => !heroEl || !heroEl.contains(el));
 
@@ -66,14 +68,17 @@
       );
       reveals.forEach((el) => io.observe(el));
     } else {
+      // No IO support → show everything immediately
       allReveal.forEach((el) => el.classList.add('in-view'));
     }
-  } else {
-    document.querySelectorAll(REVEAL_SEL + ',' + HERO_ANIM).forEach((el) => {
-      el.classList.add('in-view');
-      el.style.opacity = '1';
-      el.style.transform = 'none';
+  }
+
+  // Respect reduced-motion ONLY for hero keyframe animations (fast spinning/flying)
+  if (reduced) {
+    document.querySelectorAll(HERO_ANIM).forEach((el) => {
       el.style.animation = 'none';
+      el.style.opacity   = '1';
+      el.style.transform = 'none';
     });
   }
 

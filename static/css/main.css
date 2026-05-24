@@ -1692,11 +1692,16 @@ body.page-home .section > .container.about-grid {
 .d6 { transition-delay: .42s; }
 
 /* ── 7. Reduce motion ─────────────────────────────────────────── */
+/* When reduced motion is preferred: remove slide/scale transforms so elements
+   just fade in (no sliding) — IO observer still controls opacity timing */
 @media (prefers-reduced-motion: reduce) {
   .fx-l, .fx-r, .fx-u, .fx-scale {
+    transform: none !important;
+    transition: opacity 0.4s ease !important;
+  }
+  .fx-l.in-view, .fx-r.in-view, .fx-u.in-view, .fx-scale.in-view {
     opacity: 1 !important;
     transform: none !important;
-    transition: none !important;
   }
 }
 
@@ -1943,6 +1948,7 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
 
 /* ── Reduce motion ──────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  /* Hero keyframe animations — disable (potentially disorienting) */
   .hero-badge-anim, .hero-title-anim, .hero-desc-anim,
   .hero-actions-anim, .hero-trust-anim .trust-badge {
     animation: none !important;
@@ -1950,10 +1956,15 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
     transform: none !important;
     filter: none !important;
   }
+  /* Scroll-reveal fx-* — remove slide/scale transforms so they just fade in.
+     IO observer still controls WHEN opacity goes to 1 (via .in-view class). */
   .fx-l, .fx-r, .fx-u, .fx-scale {
+    transform: none !important;
+    transition: opacity 0.4s ease !important;
+  }
+  .fx-l.in-view, .fx-r.in-view, .fx-u.in-view, .fx-scale.in-view {
     opacity: 1 !important;
     transform: none !important;
-    transition: none !important;
   }
 }
 
