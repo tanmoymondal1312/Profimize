@@ -416,6 +416,22 @@ body::before {
   overflow: hidden;
   padding-top: var(--header-h);
 }
+/* Gradient bleed at hero bottom — fades hero bg into next section */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(11, 18, 32, .55) 45%,
+    rgba(7, 11, 20, .92) 78%,
+    var(--bg-900) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
 .hero-bg {
   position: absolute; inset: 0; overflow: hidden; z-index: 0;
 }
@@ -537,7 +553,8 @@ body::before {
   background: var(--bg-800);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding-block: 3rem;
+  padding-block: 3.5rem;
+  position: relative;
 }
 .stats-grid {
   display: grid;
@@ -1572,11 +1589,29 @@ body.page-home::before {
   );
 }
 
-/* ── 2. Stats strip — semi-transparent so sweep shows through ─── */
+/* ── 2. Stats strip — gradient blend from hero into section ─── */
 body.page-home .stats-strip {
-  background: rgba(11, 18, 32, .55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(
+    180deg,
+    rgba(7, 11, 20, .92)       0%,   /* matches hero::after bottom */
+    rgba(14, 30, 55, .70)      30%,  /* picks up hero blue tint */
+    rgba(11, 18, 32, .85)      65%,
+    var(--bg-800)              100%
+  );
+  border-top: 1px solid rgba(62, 207, 207, .08);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+}
+/* Subtle teal accent line at very top of strip */
+body.page-home .stats-strip::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(62,207,207,.35), rgba(99,102,241,.25), transparent);
+  pointer-events: none;
 }
 
 /* ── 3. Section context for glow blobs ────────────────────────── */
