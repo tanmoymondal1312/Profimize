@@ -40,9 +40,16 @@
   });
 
   /* ── 3. Scroll reveal via IntersectionObserver ── */
+  // Hero uses CSS @keyframes — exclude those from IO observer
   const REVEAL_SEL = '.reveal, .fx-l, .fx-r, .fx-u, .fx-scale';
+  const HERO_ANIM  = '.hero-badge-anim,.hero-title-anim,.hero-desc-anim,.hero-actions-anim,.hero-trust-anim';
+
   if (!reduced) {
-    const reveals = document.querySelectorAll(REVEAL_SEL);
+    const allReveal = document.querySelectorAll(REVEAL_SEL);
+    // Filter out elements that are inside the hero (those animate via keyframes)
+    const heroEl = document.querySelector('.hero');
+    const reveals = Array.from(allReveal).filter((el) => !heroEl || !heroEl.contains(el));
+
     if (reveals.length && 'IntersectionObserver' in window) {
       const io = new IntersectionObserver(
         (entries) => {
@@ -53,14 +60,19 @@
             }
           });
         },
-        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
       );
       reveals.forEach((el) => io.observe(el));
     } else {
-      reveals.forEach((el) => el.classList.add('in-view'));
+      allReveal.forEach((el) => el.classList.add('in-view'));
     }
   } else {
-    document.querySelectorAll(REVEAL_SEL).forEach((el) => el.classList.add('in-view'));
+    document.querySelectorAll(REVEAL_SEL + ',' + HERO_ANIM).forEach((el) => {
+      el.classList.add('in-view');
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.animation = 'none';
+    });
   }
 
   /* ── 4. Parallax on hero blobs (mouse + scroll) ── */
