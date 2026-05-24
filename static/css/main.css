@@ -2029,61 +2029,7 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* ── Shooting comets — appear at random screen positions, flash & vanish ── */
-.hero-comets {
-  position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
-}
-.hero-comet {
-  position: absolute;
-  width: 100px;
-  height: 5px;
-  border-radius: 3px;
-  /* Tail=transparent (left), Head=white (right) — LTR default */
-  background: linear-gradient(to right, transparent 0%, rgba(255,255,255,.88) 100%);
-  filter: drop-shadow(0 0 5px rgba(255,255,255,.45));
-  animation: cometFlash var(--c-dur, 14s) linear var(--c-delay, 0s) infinite;
-}
-/* Glowing head dot — right side = leading edge for LTR */
-.hero-comet::before {
-  content: '';
-  position: absolute;
-  right: -4px; top: 50%;
-  transform: translateY(-50%);
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.95);
-  box-shadow: 0 0 12px 5px rgba(255,255,255,.3);
-}
-
-/* Each comet placed at a different screen position */
-.hero-comet:nth-child(1) { top: 18%; left: 62%; }  /* upper-right → moves right  */
-.hero-comet:nth-child(2) { top: 50%; left: 30%; }  /* middle-left  → moves left  */
-.hero-comet:nth-child(3) { top: 78%; left: 46%; }  /* lower-center → moves right */
-
-/* RTL variant — head on LEFT, tail on right */
-.hero-comet--rtl {
-  background: linear-gradient(to right, rgba(255,255,255,.88) 0%, transparent 100%);
-  animation-name: cometFlashRTL;
-}
-.hero-comet--rtl::before { right: auto; left: -4px; }
-
-/*
-  Flash keyframe: comet is INVISIBLE for most of the cycle.
-  Appears briefly at its fixed screen position, travels ~210px, then vanishes.
-  Different durations + delays = they never all fire at the same time → feels random.
-*/
-@keyframes cometFlash {
-  0%    { transform: translateX(0);     opacity: 0; }
-  4%    { opacity: .9; }
-  22%   { transform: translateX(215px); opacity: 0; }
-  100%  { transform: translateX(215px); opacity: 0; }
-}
-@keyframes cometFlashRTL {
-  0%    { transform: translateX(0);      opacity: 0; }
-  4%    { opacity: .9; }
-  22%   { transform: translateX(-215px); opacity: 0; }
-  100%  { transform: translateX(-215px); opacity: 0; }
-}
+/* Comet system permanently removed */
 
 /* ── Twinkling stars ────────────────────────────────────────────── */
 .hero-stars {
@@ -2208,9 +2154,9 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
 .hero-trust-anim .trust-badge:nth-child(2) { animation: trustPop .65s cubic-bezier(.34,1.56,.64,1) 1.46s both !important; }
 .hero-trust-anim .trust-badge:nth-child(3) { animation: trustPop .65s cubic-bezier(.34,1.56,.64,1) 1.64s both !important; }
 
-/* ── Disable hero comet/star/orbit on reduced motion ─────────────── */
+/* ── Disable hero star/orbit on reduced motion ─────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .hero-comet, .hero-star, .hero-orbit, .hero-nebula { animation: none !important; }
+  .hero-star, .hero-orbit, .hero-nebula { animation: none !important; }
   .hw { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; }
   .hero-cta-primary, .hero-cta-secondary { animation: none !important; opacity: 1 !important; }
   .hero-trust-anim .trust-badge { animation: none !important; opacity: 1 !important; }
@@ -2231,10 +2177,6 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
 
   /* Keep only first 5 particles, hide the rest */
   .hero-particle:nth-child(n+6) { display: none !important; }
-
-  /* Remove GPU-heavy drop-shadow filter on comets */
-  .hero-comet { filter: none !important; }
-  .hero-comet::before { box-shadow: 0 0 6px 3px rgba(255,255,255,.25) !important; }
 
   /* Simplify hero text animations — remove blur (expensive on low-end GPU) */
   .hw {
