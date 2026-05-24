@@ -40,8 +40,9 @@
   });
 
   /* ── 3. Scroll reveal via IntersectionObserver ── */
+  const REVEAL_SEL = '.reveal, .fx-l, .fx-r, .fx-u, .fx-scale';
   if (!reduced) {
-    const reveals = document.querySelectorAll('.reveal');
+    const reveals = document.querySelectorAll(REVEAL_SEL);
     if (reveals.length && 'IntersectionObserver' in window) {
       const io = new IntersectionObserver(
         (entries) => {
@@ -52,14 +53,14 @@
             }
           });
         },
-        { threshold: 0.12 }
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
       );
       reveals.forEach((el) => io.observe(el));
     } else {
       reveals.forEach((el) => el.classList.add('in-view'));
     }
   } else {
-    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'));
+    document.querySelectorAll(REVEAL_SEL).forEach((el) => el.classList.add('in-view'));
   }
 
   /* ── 4. Parallax on hero blobs (mouse + scroll) ── */

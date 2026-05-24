@@ -1567,3 +1567,179 @@ body::before {
   font-size: .75rem;
   font-weight: 600;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOME PAGE — Color Sweep + Premium Directional Animations
+   Scoped entirely to body.page-home — zero impact on other pages.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Full-page gradient sweep (fixed behind all content) ───── */
+body.page-home::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(99, 102, 241, .09)  0%,
+    rgba(59, 130, 246, .1)  10%,
+    rgba(6,  182, 212, .11)  22%,
+    rgba(20, 184, 166, .1)  36%,
+    rgba(16, 185, 129, .09)  50%,
+    rgba(168, 85, 247, .1)   64%,
+    rgba(139, 92, 246, .09)  78%,
+    rgba(59, 130, 246, .1)  90%,
+    rgba(99, 102, 241, .09) 100%
+  );
+}
+
+/* ── 2. Stats strip — semi-transparent so sweep shows through ─── */
+body.page-home .stats-strip {
+  background: rgba(11, 18, 32, .55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ── 3. Section context for glow blobs ────────────────────────── */
+body.page-home .section {
+  position: relative;
+  overflow: hidden;
+}
+body.page-home .section > .container,
+body.page-home .section > .container.about-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 4. Ambient glow blobs ────────────────────────────────────── */
+.sec-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(100px);
+}
+
+/* Sky-blue blob — About section */
+.sec-blob--sky {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(14,165,233,.14) 0%, transparent 70%);
+}
+/* Teal blob — Services section */
+.sec-blob--teal {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(20,184,166,.13) 0%, transparent 70%);
+}
+/* Emerald blob — Approach section */
+.sec-blob--emerald {
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%);
+}
+/* Purple blob — Portfolio section */
+.sec-blob--purple {
+  width: 580px; height: 580px;
+  background: radial-gradient(circle, rgba(168,85,247,.12) 0%, transparent 70%);
+}
+/* Violet blob — Testimonials section */
+.sec-blob--violet {
+  width: 540px; height: 540px;
+  background: radial-gradient(circle, rgba(139,92,246,.11) 0%, transparent 70%);
+}
+/* Blue blob — Blog section */
+.sec-blob--blue {
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(59,130,246,.11) 0%, transparent 70%);
+}
+/* Indigo blob — Contact section */
+.sec-blob--indigo {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(99,102,241,.12) 0%, transparent 70%);
+}
+
+/* Blob position variants */
+.sec-blob--tl { top: -160px; left: -160px; }
+.sec-blob--tr { top: -160px; right: -160px; }
+.sec-blob--bl { bottom: -160px; left: -160px; }
+.sec-blob--br { bottom: -160px; right: -160px; }
+.sec-blob--cr { top: 50%; right: -200px; transform: translateY(-50%); }
+.sec-blob--cl { top: 50%; left: -200px; transform: translateY(-50%); }
+
+/* ── 5. Directional animation classes ─────────────────────────── */
+
+/* From left */
+.fx-l {
+  opacity: 0;
+  transform: translateX(-64px);
+  transition:
+    opacity .8s cubic-bezier(.22, .61, .36, 1),
+    transform .8s cubic-bezier(.22, .61, .36, 1);
+}
+/* From right */
+.fx-r {
+  opacity: 0;
+  transform: translateX(64px);
+  transition:
+    opacity .8s cubic-bezier(.22, .61, .36, 1),
+    transform .8s cubic-bezier(.22, .61, .36, 1);
+}
+/* From bottom */
+.fx-u {
+  opacity: 0;
+  transform: translateY(48px);
+  transition:
+    opacity .75s cubic-bezier(.22, .61, .36, 1),
+    transform .75s cubic-bezier(.22, .61, .36, 1);
+}
+/* Scale + fade */
+.fx-scale {
+  opacity: 0;
+  transform: scale(.86) translateY(20px);
+  transition:
+    opacity .7s cubic-bezier(.22, .61, .36, 1),
+    transform .7s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Triggered state — all variants resolve to same resting position */
+.fx-l.in-view,
+.fx-r.in-view,
+.fx-u.in-view,
+.fx-scale.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── 6. Stagger delays ────────────────────────────────────────── */
+.d1 { transition-delay: .07s; }
+.d2 { transition-delay: .14s; }
+.d3 { transition-delay: .21s; }
+.d4 { transition-delay: .28s; }
+.d5 { transition-delay: .35s; }
+.d6 { transition-delay: .42s; }
+
+/* ── 7. Reduce motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .fx-l, .fx-r, .fx-u, .fx-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── 8. Approach steps — alternate direction helper ──────────── */
+.approach-grid .approach-step:nth-child(1).fx-u { transform: translateX(-40px) translateY(40px); }
+.approach-grid .approach-step:nth-child(3).fx-u { transform: translateX(40px) translateY(40px); }
+.approach-grid .approach-step.fx-u.in-view       { transform: none; }
+
+/* Blog cards on home — wrapper div is the grid item; article fills it */
+body.page-home .blog-preview-grid > div.fx-u {
+  display: flex;
+  flex-direction: column;
+}
+body.page-home .blog-preview-grid > div.fx-u .post-card {
+  flex: 1;
+  /* Parent wrapper handles the entrance animation */
+  opacity: 1 !important;
+  transform: none !important;
+  transition: transform var(--transition), box-shadow var(--transition) !important;
+}
