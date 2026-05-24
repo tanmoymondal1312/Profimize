@@ -60,7 +60,9 @@
             }
           });
         },
-        { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
+        /* trigger when 6% visible; -8% rootMargin = fires as element
+           enters from bottom — clearly visible on all screen sizes */
+        { threshold: 0.06, rootMargin: '0px 0px -8% 0px' }
       );
       reveals.forEach((el) => io.observe(el));
     } else {
