@@ -2064,23 +2064,23 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   position: absolute;
   top: var(--c-top, 20%);
   left: 0;
-  width: var(--c-w, 200px);
-  height: 2px;
+  width: var(--c-w, 110px);
+  height: 4px;                   /* mota */
+  border-radius: 2px;
   background: linear-gradient(to right, transparent 0%, var(--c-color, rgba(56,189,248,.9)) 100%);
-  border-radius: 50%;
-  filter: drop-shadow(0 0 8px var(--c-color, rgba(56,189,248,.5)));
+  filter: drop-shadow(0 0 6px var(--c-color, rgba(56,189,248,.6)));
   animation: cometFly var(--c-dur, 5s) ease-out var(--c-delay, 0s) infinite;
 }
 /* Glowing head dot */
 .hero-comet::before {
   content: '';
   position: absolute;
-  right: -2px; top: 50%;
+  right: -3px; top: 50%;
   transform: translateY(-50%);
-  width: 5px; height: 5px;
+  width: 8px; height: 8px;       /* boro head */
   border-radius: 50%;
-  background: var(--c-color, rgba(56,189,248,.9));
-  box-shadow: 0 0 12px 5px var(--c-color, rgba(56,189,248,.4));
+  background: var(--c-color, rgba(56,189,248,.95));
+  box-shadow: 0 0 14px 6px var(--c-color, rgba(56,189,248,.45));
 }
 /* Right-to-left variant */
 .hero-comet--rtl {
@@ -2088,20 +2088,25 @@ body.page-home .blog-preview-grid > div.fx-u .post-card {
   animation-name: cometFlyRTL;
 }
 .hero-comet--rtl::before {
-  right: auto; left: -2px;
+  right: auto; left: -3px;
 }
 
+/*
+  Screen-space translate — both axes use `vw` so the visual angle is
+  arctan(155/200) ≈ 38° on EVERY viewport size (desktop & mobile).
+  Old rotate+translateX caused the angle to flatten on wide desktops.
+*/
 @keyframes cometFly {
-  0%   { transform: rotate(-38deg) translateX(-160vw); opacity: 0; }
-  5%   { opacity: 1; }
+  0%   { transform: translate(-70vw, -55vw) rotate(-35deg); opacity: 0; }
+  6%   { opacity: 1; }
   88%  { opacity: .9; }
-  100% { transform: rotate(-38deg) translateX(160vw); opacity: 0; }
+  100% { transform: translate(135vw,  105vw) rotate(-35deg); opacity: 0; }
 }
 @keyframes cometFlyRTL {
-  0%   { transform: rotate(38deg) translateX(160vw); opacity: 0; }
-  5%   { opacity: 1; }
+  0%   { transform: translate(135vw, -55vw) rotate(35deg); opacity: 0; }
+  6%   { opacity: 1; }
   88%  { opacity: .9; }
-  100% { transform: rotate(38deg) translateX(-160vw); opacity: 0; }
+  100% { transform: translate(-70vw,  105vw) rotate(35deg); opacity: 0; }
 }
 
 /* ── Twinkling stars ────────────────────────────────────────────── */
