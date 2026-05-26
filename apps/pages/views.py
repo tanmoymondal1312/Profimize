@@ -23,7 +23,8 @@ def home(request):
 
     ctx = {
         "services": Service.objects.filter(is_active=True)[:6],
-        "projects": Project.objects.all()[:4],
+        # RESTORE: uncomment when portfolio section is re-enabled (~1 year from 2026-05-26)
+        # "projects": Project.objects.all()[:4],
         "testimonials": Testimonial.objects.filter(is_active=True),
         "stats": Stat.objects.all(),
         "latest_posts": Post.published.select_related("category", "author")[:4],

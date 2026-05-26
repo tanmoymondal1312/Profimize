@@ -4,5 +4,7 @@ Allow: /
 Disallow: /admin/
 Disallow: /blog/search/
 Disallow: /ckeditor5/
+# RESTORE: remove this line when portfolio is re-enabled (~1 year from 2026-05-26)
+Disallow: /portfolio/
 
 Sitemap: https://profimize.com/sitemap.xml
