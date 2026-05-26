@@ -384,61 +384,6 @@
   </div>
 </section>
 
-{# ═══════════════════════════════════════════════════════════════════
-   RESTORE: PROJECTS / PORTFOLIO SECTION
-   Hidden on: 2026-05-26 — re-enable after projects are ready (~1 year)
-   To restore: remove the comment tags wrapping this block,
-               and uncomment "projects" in views.py home() context.
-   ═══════════════════════════════════════════════════════════════════ #}
-{# PORTFOLIO-START
-<section class="section portfolio-section" id="portfolio" aria-label="Portfolio">
-  <div class="sec-blob sec-blob--purple sec-blob--tr" aria-hidden="true"></div>
-  <div class="container">
-    <div class="section-header">
-      <p class="section-label fx-r">Our Work</p>
-      <h2 class="section-title fx-l d1">Projects We're Proud Of</h2>
-      <p class="section-subtitle fx-r d2">Real results for real businesses — from web development to creative campaigns.</p>
-    </div>
-    <div class="portfolio-filters fx-u d3" role="group" aria-label="Portfolio filter">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="development">Development</button>
-      <button class="filter-btn" data-filter="creative">Creative</button>
-    </div>
-    <div class="portfolio-grid" id="portfolio-grid">
-      {% for project in projects %}
-      <div class="project-card fx-u d{{ forloop.counter }}" data-filter="{{ project.filter_group }}">
-        <div class="project-thumb">
-          {% if project.image %}
-          <img src="{{ project.image.url }}" alt="{{ project.title }}" width="400" height="280" loading="lazy" decoding="async">
-          {% else %}
-          <div class="project-placeholder" aria-hidden="true"></div>
-          {% endif %}
-          <div class="project-overlay">
-            <span class="project-category">{{ project.category }}</span>
-            <div style="display:flex;gap:.4rem;">
-              {% if project.slug %}
-              <a href="{% url 'pages:project_detail' project.slug %}" class="project-link-btn" aria-label="View details for {{ project.title }}">
-                <svg width="18" height="18" aria-hidden="true"><use href="#icon-eye"/></svg>
-              </a>
-              {% endif %}
-              {% if project.url and project.url != '#' %}
-              <a href="{{ project.url }}" target="_blank" rel="noopener noreferrer" class="project-link-btn" aria-label="Live site for {{ project.title }}">
-                <svg width="18" height="18" aria-hidden="true"><use href="#icon-external-link"/></svg>
-              </a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <div class="project-info">
-          <h3 class="project-title">{{ project.title }}</h3>
-          <span class="project-cat-label">{{ project.get_filter_group_display }}</span>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-PORTFOLIO-END #}
 
 {# ── TESTIMONIALS ── #}
 <section class="section testimonials-section" aria-label="Client Testimonials">
